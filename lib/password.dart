@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'SecurtyCode.dart';
 
 class Password extends StatelessWidget {
   @override
@@ -157,7 +158,10 @@ class _PasswordComponenState extends State<PasswordComponen> {
         padding: EdgeInsets.all(0),
         minimumSize: Size(60, 60),
       ),
-      onPressed: onPressed,
+      onPressed: () {
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context) => SecurtyCode()));
+      },
       child: Text(
         text,
         style: TextStyle(fontSize: 24),

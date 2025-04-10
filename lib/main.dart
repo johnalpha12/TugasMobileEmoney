@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screen.dart'; // splash screen pertama
+import 'screen.dart';
 
 void main() {
   runApp(const MyApp());
