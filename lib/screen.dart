@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'login.dart';
 
+
 class Screen extends StatefulWidget {
   const Screen({super.key});
 
@@ -25,7 +26,7 @@ class _ScreenState extends State<Screen> {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
       body: Center(
-        child: Image.asset('asset/logo.png'), // pastikan path asset bener
+        child: Image.asset('asset/logo.png'),
       ),
     );
   }

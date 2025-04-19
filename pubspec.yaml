@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0
   flutter_test:
     sdk: flutter
@@ -51,6 +52,10 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "asset/iconlogo.png"
 
 flutter_native_splash:
   color: "#ffffff"
@@ -69,6 +74,11 @@ flutter:
   assets:
     - asset/logo.png
     - asset/logo2.png
+    - asset/elogo1.png
+    - asset/elogo2.png
+    - asset/elogo3.png
+    - asset/elogo4.png
+    - asset/elogo5.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

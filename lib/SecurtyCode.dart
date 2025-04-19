@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'HalamanUtama.dart';
+import 'home.dart';
 
 class SecurtyCode extends StatefulWidget {
   const SecurtyCode({super.key});
@@ -27,11 +27,11 @@ class _SecurtyCodeState extends State<SecurtyCode> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: Center(
+        body: Center( 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 60),
+              SizedBox(height: 20),
               Text(
                 "Masukkan Security Code Anda Saat Ini",
                 style: TextStyle(
@@ -69,7 +69,7 @@ class _SecurtyCodeState extends State<SecurtyCode> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HalamanUtama()),
+                      MaterialPageRoute(builder: (context) => Home()),
                     );
                   },
                   child: Text(

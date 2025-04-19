@@ -89,7 +89,7 @@ class LoginComponen extends StatelessWidget {
                           Expanded(
                             child: TextField(
                               controller:
-                                  TextEditingController(text: '812 345 678 92'),
+                                  TextEditingController(),
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
                               ),

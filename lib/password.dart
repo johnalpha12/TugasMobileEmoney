@@ -69,8 +69,9 @@ class _PasswordComponenState extends State<PasswordComponen> {
                           controller: controller,
                           maxLength: 1,
                           textAlign: TextAlign.center,
+                      
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 18,
                             color: Colors.white,
                           ),
                           keyboardType: TextInputType.number,
@@ -112,7 +113,8 @@ class _PasswordComponenState extends State<PasswordComponen> {
                 minimumSize: Size(200, 50),
               ),
               onPressed: () {
-                // Aksi saat tombol Continue ditekan
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SecurtyCode()));
               },
               child: Text('Continue'),
             )
@@ -158,10 +160,7 @@ class _PasswordComponenState extends State<PasswordComponen> {
         padding: EdgeInsets.all(0),
         minimumSize: Size(60, 60),
       ),
-      onPressed: () {
-        Navigator.push(context, 
-        MaterialPageRoute(builder: (context) => SecurtyCode()));
-      },
+      onPressed: onPressed,
       child: Text(
         text,
         style: TextStyle(fontSize: 24),
