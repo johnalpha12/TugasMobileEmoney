@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'password.dart';
 
-
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,6 +13,8 @@ class Login extends StatelessWidget {
 }
 
 class LoginComponen extends StatelessWidget {
+  final TextEditingController _phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,6 @@ class LoginComponen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                
                 SizedBox(height: 80),
                 Container(
                   padding: EdgeInsets.all(20),
@@ -88,8 +88,8 @@ class LoginComponen extends StatelessWidget {
                           SizedBox(width: 10),
                           Expanded(
                             child: TextField(
-                              controller:
-                                  TextEditingController(),
+                              controller: _phoneController,
+                              keyboardType: TextInputType.phone,
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
                               ),
@@ -98,29 +98,40 @@ class LoginComponen extends StatelessWidget {
                           Icon(Icons.check_circle, color: Colors.green),
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    minimumSize: Size(double.infinity, 50),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context, 
-                    MaterialPageRoute(builder: (context) => Password()));
-                  
-                  },
-                  child: Text('Lanjutkan', style: TextStyle(color: Colors.white),),
-                ),
-                
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        onPressed: () {
+                          if (_phoneController.text.trim().isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text('Masukkan nomor HP terlebih dahulu'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Password()),
+                            );
+                          }
+                        },
+                        child: Text(
+                          'Lanjutkan',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ],
                   ),
-                  
                 ),
-                
               ],
             ),
           ),

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tugas/kirim_uang.dart';
+import 'package:tugas/minta_uang.dart';
 import 'profile.dart';
+import 'inbox.dart';
+import 'history.dart';
+import 'pocket.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,15 +14,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isAmountVisible = true;
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePageContent(),
-    History(),
-    ScanQr(),
-    Pocket(),
-    ProfilePage(),
+    const HomePageContent(),
+    const History(),
+    const ScanQr(),
+    const Pocket(),
+    const ProfilePagee(),
   ];
 
   @override
@@ -51,7 +55,7 @@ class _HomeState extends State<Home> {
               color: Colors.deepPurple,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.grid_view, color: Colors.white, size: 20),
+            child: const Icon(Icons.qr_code_scanner, color: Colors.white, size: 20),
           ),
           label: "",
         ),
@@ -135,13 +139,21 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[400],
-                    borderRadius: BorderRadius.circular(8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Inbox()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[400],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.mail, color: Colors.white, size: 16),
                   ),
-                  child: const Icon(Icons.mail, color: Colors.white, size: 16),
                 ),
               ],
             ),
@@ -172,43 +184,56 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
               ],
             ),
             const SizedBox(height: 15),
-            _buildHeaderButtons(),
+            _buildHeaderButtons(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeaderButtons() {
+  Widget _buildHeaderButtons(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildHeaderButton(Icons.indeterminate_check_box_outlined, 'Pindai'),
-        _buildHeaderButton(Icons.add, 'Isi Saldo'),
-        _buildHeaderButton(Icons.attach_money, 'Kirim'),
-        _buildHeaderButton(Icons.attach_money, 'Minta'),
+        _buildHeaderButton(Icons.qr_code_scanner, 'Pindai', () {}),
+        _buildHeaderButton(Icons.add, 'Isi Saldo', () {}),
+        _buildHeaderButton(Icons.attach_money, 'Kirim', () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KirimUangApp()),
+          );
+        }),
+        _buildHeaderButton(Icons.request_page, 'Minta', () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BagiUangApp()),
+          );
+        }),
       ],
     );
   }
 
-  Widget _buildHeaderButton(IconData icon, String text) {
-    return Column(
-      children: [
-        Container(
-          width: 55,
-          height: 55,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.white.withOpacity(0.6),
-              width: 1.5,
+  Widget _buildHeaderButton(IconData icon, String text, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 55,
+            height: 55,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.white.withOpacity(0.6),
+                width: 1.5,
+              ),
+              borderRadius: BorderRadius.circular(10),
             ),
-            borderRadius: BorderRadius.circular(10),
+            child: Icon(icon, color: Colors.white, size: 26),
           ),
-          child: Icon(icon, color: Colors.white, size: 26),
-        ),
-        const SizedBox(height: 5),
-        Text(text, style: const TextStyle(color: Colors.white, fontSize: 12)),
-      ],
+          const SizedBox(height: 5),
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 12)),
+        ],
+      ),
     );
   }
 
@@ -274,117 +299,46 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 }
 
-
-class History extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-              const SizedBox(height: 20),
-              const Text(
-                '404 - Page Not Found',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Oops! The page you are looking for doesn\'t exist.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Pocket extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-              const SizedBox(height: 20),
-              const Text(
-                '404 - Page Not Found',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Oops! The page you are looking for doesn\'t exist.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class ScanQr extends StatelessWidget {
+  const ScanQr({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-              const SizedBox(height: 20),
-              const Text(
-                '404 - Page Not Found',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
+    return _buildNotFoundPage();
+  }
+}
+
+Widget _buildNotFoundPage() {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
+            SizedBox(height: 20),
+            Text(
+              '404 - Page Not Found',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'Oops! The page you are looking for doesn\'t exist.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Oops! The page you are looking for doesn\'t exist.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }

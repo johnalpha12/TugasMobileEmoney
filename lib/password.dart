@@ -42,6 +42,10 @@ class _PasswordComponenState extends State<PasswordComponen> {
     }
   }
 
+  bool _isPinComplete() {
+    return _pinControllers.every((controller) => controller.text.isNotEmpty);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +73,6 @@ class _PasswordComponenState extends State<PasswordComponen> {
                           controller: controller,
                           maxLength: 1,
                           textAlign: TextAlign.center,
-                      
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -113,8 +116,19 @@ class _PasswordComponenState extends State<PasswordComponen> {
                 minimumSize: Size(200, 50),
               ),
               onPressed: () {
-                Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecurtyCode()));
+                if (_isPinComplete()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SecurtyCode()),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Masukkan sandi Anda terlebih dahulu'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               },
               child: Text('Continue'),
             )

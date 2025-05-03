@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'edit_profile.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfilePagee extends StatefulWidget {
+  const ProfilePagee({super.key});
+
+  @override
+  State<ProfilePagee> createState() => _ProfilePageeState();
+}
+
+class _ProfilePageeState extends State<ProfilePagee> {
+  // User data yang dapat diubah
+  String userName = "Agus Salim";
+  String phoneNumber = "082134410085";
+  String email = "agussalim@gmail.com";
+  String gender = "Pria"; // Default gender
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +37,15 @@ class ProfilePage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ListTile(
-            leading: const CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage('assets/profile.jpg'), // Ganti sesuai gambar profil
+            leading: GestureDetector(
+              onTap: () => _navigateToEditProfile(context),
+              child: const CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage('asset/foto.png'),
+              ),
             ),
-            title: const Text("Agus Salim", style: TextStyle(color: Colors.white, fontSize: 18)),
-            subtitle: const Text("082134410085", style: TextStyle(color: Colors.white70)),
+            title: Text(userName, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            subtitle: Text(phoneNumber, style: const TextStyle(color: Colors.white70)),
             trailing: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -68,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.deepPurple,
                                   ),
-                                  child: const Text("Top Up"),
+                                  child: const Text("Top Up", style: TextStyle(color: Colors.white),),
                                 ),
                               ],
                             ),
@@ -110,6 +125,32 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Fungsi untuk navigasi ke halaman EditProfile
+  Future<void> _navigateToEditProfile(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfile(
+          firstName: userName.split(" ")[0],
+          lastName: userName.contains(" ") ? userName.substring(userName.indexOf(" ") + 1) : "",
+          phoneNumber: phoneNumber,
+          email: email,
+          gender: gender,
+        ),
+      ),
+    );
+
+    // Update profil jika data dikembalikan dari halaman edit
+    if (result != null && result is Map<String, dynamic>) {
+      setState(() {
+        userName = "${result['firstName']} ${result['lastName']}";
+        phoneNumber = result['phoneNumber'];
+        email = result['email'];
+        gender = result['gender'];
+      });
+    }
   }
 
   Widget buildGoalCard(String title, int amount, double progress) {

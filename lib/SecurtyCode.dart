@@ -12,6 +12,7 @@ class _SecurtyCodeState extends State<SecurtyCode> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,

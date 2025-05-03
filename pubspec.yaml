@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  font_awesome_flutter: ^10.8.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -79,6 +80,7 @@ flutter:
     - asset/elogo3.png
     - asset/elogo4.png
     - asset/elogo5.png
+    - asset/foto.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
