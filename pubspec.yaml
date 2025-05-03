@@ -81,6 +81,15 @@ flutter:
     - asset/elogo4.png
     - asset/elogo5.png
     - asset/foto.png
+    - asset/ilogo1.png
+    - asset/ilogo2.png
+    - asset/ilogo3.png
+    - asset/ilogo4.png
+    - asset/ilogo5.png
+    - asset/ilogo6.png
+    - asset/ilogo7.png
+    - asset/ilogo8.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
