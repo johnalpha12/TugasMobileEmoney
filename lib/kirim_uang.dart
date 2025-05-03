@@ -108,7 +108,7 @@ class KirimUangPage extends StatelessWidget {
             child: Column(
               children: [
                 ClipOval(
-                  child: Image.network(item['img']!, width: 50, height: 50),
+                  child: Image.asset(item['img']!, width: 50, height: 50),
                 ),
                 SizedBox(height: 10),
                 Text(item[isContact ? 'name' : 'label']!, textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
