@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tugas/home.dart';
-import 'home.dart';
 
 class KirimUangApp extends StatelessWidget {
   @override
