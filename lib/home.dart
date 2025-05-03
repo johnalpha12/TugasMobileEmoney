@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
+import 'profile_page.dart';
+import 'inbox.dart';
+import 'history.dart';
+import 'pocket.dart'; // Import file pocket.dart
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,11 +16,11 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePageContent(),
-    History(),
+    const HomePageContent(),
+    const History(),
     ScanQr(),
-    Pocket(),
-    ProfilePage(),
+    const Pocket(), // Menggunakan widget Pocket dari pocket.dart
+    const ProfilePage(),
   ];
 
   @override
@@ -135,13 +138,21 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[400],
-                    borderRadius: BorderRadius.circular(8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Inbox()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[400],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.mail, color: Colors.white, size: 16),
                   ),
-                  child: const Icon(Icons.mail, color: Colors.white, size: 16),
                 ),
               ],
             ),
@@ -274,83 +285,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 }
 
-
-class History extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-              const SizedBox(height: 20),
-              const Text(
-                '404 - Page Not Found',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Oops! The page you are looking for doesn\'t exist.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Pocket extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-              const SizedBox(height: 20),
-              const Text(
-                '404 - Page Not Found',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Oops! The page you are looking for doesn\'t exist.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
+// ScanQr class remains unchanged
 class ScanQr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

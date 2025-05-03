@@ -1,27 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pocket App',
-      debugShowCheckedModeBanner: false, // Tambahkan baris ini
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: const PocketScreen(),
-    );
-  }
-}
-
-class PocketScreen extends StatelessWidget {
-  const PocketScreen({super.key});
+class Pocket extends StatelessWidget {
+  const Pocket({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +10,7 @@ class PocketScreen extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         title: const Text(
           'Pocket',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -39,120 +19,88 @@ class PocketScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Card',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16.0),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Cari Kartu',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 20),
             const Text(
               'Card 1',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 10),
             Container(
               width: double.infinity,
-              height: 120.0,
+              height: 100,
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Colors.deepPurple.shade300,
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              // You can add card details here later
+              child: const Center(
+                child: Text(
+                  '**** **** **** 1234',
+                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 20),
             const Text(
               'Card 2',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 10),
             Container(
               width: double.infinity,
-              height: 120.0,
+              height: 100,
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Colors.deepPurple.shade300,
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              // You can add card details here later
+              child: const Center(
+                child: Text(
+                  '**** **** **** 5678',
+                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
-            const Spacer(),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
+                children: [
                   const Text(
                     'Save your bank cards!',
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Add functionality to add a new card
+                      // Add new card functionality
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
+                        side: const BorderSide(color: Colors.deepPurple),
                       ),
                     ),
-                    child: const Row(
-                      children: <Widget>[
-                        Icon(Icons.add, color: Colors.white),
-                        SizedBox(width: 4.0),
-                        Text('ADD', style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
+                    child: const Text('+ ADD'),
                   ),
                 ],
               ),
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.deepPurple,
-        unselectedItemColor: Colors.grey,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
-            label: 'Scan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet),
-            label: 'Pocket',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Me',
-          ),
-        ],
       ),
     );
   }
