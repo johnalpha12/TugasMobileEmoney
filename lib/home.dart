@@ -5,6 +5,7 @@ import 'profile.dart';
 import 'inbox.dart';
 import 'history.dart';
 import 'pocket.dart';
+import 'qris.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _pages = [
     const HomePageContent(),
     const History(),
-    const ScanQr(),
+    const QrisPage(),
     const Pocket(),
     const ProfilePagee(),
   ];
@@ -299,46 +300,3 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 }
 
-class ScanQr extends StatelessWidget {
-  const ScanQr({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildNotFoundPage();
-  }
-}
-
-Widget _buildNotFoundPage() {
-  return Scaffold(
-    backgroundColor: Colors.white,
-    body: Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.error_outline, color: Colors.deepPurple, size: 80),
-            SizedBox(height: 20),
-            Text(
-              '404 - Page Not Found',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Oops! The page you are looking for doesn\'t exist.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
