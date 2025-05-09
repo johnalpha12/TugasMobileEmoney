@@ -195,6 +195,7 @@ class _HistoryState extends State<History> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
+        automaticallyImplyLeading: false,
         title: const Text(
           'Activity',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

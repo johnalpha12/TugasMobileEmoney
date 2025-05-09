@@ -8,6 +8,7 @@ class Pocket extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
+        automaticallyImplyLeading: false,
         title: const Text(
           'Pocket',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
