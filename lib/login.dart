@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'password.dart';
 
 class Login extends StatelessWidget {
@@ -12,8 +13,32 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginComponen extends StatelessWidget {
+class LoginComponen extends StatefulWidget {
+  @override
+  _LoginComponenState createState() => _LoginComponenState();
+}
+
+class _LoginComponenState extends State<LoginComponen> {
   final TextEditingController _phoneController = TextEditingController();
+  bool _isValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneController.addListener(_validatePhone);
+  }
+
+  void _validatePhone() {
+    setState(() {
+      _isValid = _phoneController.text.trim().length == 12;
+    });
+  }
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +114,24 @@ class LoginComponen extends StatelessWidget {
                           Expanded(
                             child: TextField(
                               controller: _phoneController,
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(12),
+                              ],
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
                               ),
                             ),
                           ),
-                          Icon(Icons.check_circle, color: Colors.green),
+                          Icon(
+                            _phoneController.text.isEmpty || !_isValid
+                                ? Icons.cancel
+                                : Icons.check_circle,
+                            color: _phoneController.text.isEmpty || !_isValid
+                                ? Colors.grey
+                                : Colors.green,
+                          ),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -107,23 +143,23 @@ class LoginComponen extends StatelessWidget {
                           ),
                           minimumSize: Size(double.infinity, 50),
                         ),
-                        onPressed: () {
-                          if (_phoneController.text.trim().isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content:
-                                    Text('Masukkan nomor HP terlebih dahulu'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Password()),
-                            );
-                          }
-                        },
+                        onPressed: _isValid
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Password()),
+                                );
+                              }
+                            : () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text('Nomor HP harus 12 digit angka'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              },
                         child: Text(
                           'Lanjutkan',
                           style: TextStyle(color: Colors.white),
