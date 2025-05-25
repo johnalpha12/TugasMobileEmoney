@@ -6,6 +6,7 @@ import 'inbox.dart';
 import 'history.dart';
 import 'pocket.dart';
 import 'qris.dart';
+import 'withdraw.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -239,17 +240,30 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 
   Widget _buildMenuGrid() {
+    // Explicitly define the type for onTap to be VoidCallback? (nullable)
+    // This helps the Dart analyzer understand that 'onTap' is a function.
     final List<Map<String, dynamic>> menuItems = [
-      {'icon': Icons.credit_card_outlined, 'text': 'Accept and\nCard', 'color': Colors.blue, 'bgColor': Colors.blue.shade50},
-      {'icon': Icons.swap_horiz, 'text': 'Transfer', 'color': Colors.red.shade400, 'bgColor': Colors.red.shade50},
-      {'icon': Icons.atm_outlined, 'text': 'Withdraw', 'color': Colors.blue, 'bgColor': Colors.blue.shade50},
-      {'icon': Icons.sim_card_outlined, 'text': 'Mobile\nPrepaid', 'color': Colors.amber, 'bgColor': Colors.amber.shade50},
-      {'icon': Icons.receipt_outlined, 'text': 'Pay the\nBill', 'color': Colors.teal, 'bgColor': Colors.teal.shade50},
-      {'icon': Icons.savings_outlined, 'text': 'Save\nonline', 'color': Colors.indigo, 'bgColor': Colors.indigo.shade50},
-      {'icon': Icons.credit_card_outlined, 'text': 'Credit\nCard', 'color': Colors.orange, 'bgColor': Colors.orange.shade50},
-      {'icon': Icons.receipt_long_outlined, 'text': 'Transaction\nReport', 'color': Colors.blue.shade700, 'bgColor': Colors.blue.shade50},
-      {'icon': Icons.person_add_outlined, 'text': 'Beneficiary', 'color': Colors.pink, 'bgColor': Colors.pink.shade50},
-      {'icon': Icons.account_balance_outlined, 'text': 'Taxes/Loan', 'color': Colors.black, 'bgColor': Colors.grey.shade100},
+      {'icon': Icons.credit_card_outlined, 'text': 'Accept and\nCard', 'color': Colors.blue, 'bgColor': Colors.blue.shade50, 'onTap': () {}},
+      {'icon': Icons.swap_horiz, 'text': 'Transfer', 'color': Colors.red.shade400, 'bgColor': Colors.red.shade50, 'onTap': () {}},
+      {
+        'icon': Icons.atm_outlined,
+        'text': 'Withdraw',
+        'color': Colors.blue,
+        'bgColor': Colors.blue.shade50,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WithdrawPage()), // Target your WithdrawPage widget
+          );
+        },
+      },
+      {'icon': Icons.sim_card_outlined, 'text': 'Mobile\nPrepaid', 'color': Colors.amber, 'bgColor': Colors.amber.shade50, 'onTap': () {}},
+      {'icon': Icons.receipt_outlined, 'text': 'Pay the\nBill', 'color': Colors.teal, 'bgColor': Colors.teal.shade50, 'onTap': () {}},
+      {'icon': Icons.savings_outlined, 'text': 'Save\nonline', 'color': Colors.indigo, 'bgColor': Colors.indigo.shade50, 'onTap': () {}},
+      {'icon': Icons.credit_card_outlined, 'text': 'Credit\nCard', 'color': Colors.orange, 'bgColor': Colors.orange.shade50, 'onTap': () {}},
+      {'icon': Icons.receipt_long_outlined, 'text': 'Transaction\nReport', 'color': Colors.blue.shade700, 'bgColor': Colors.blue.shade50, 'onTap': () {}},
+      {'icon': Icons.person_add_outlined, 'text': 'Beneficiary', 'color': Colors.pink, 'bgColor': Colors.pink.shade50, 'onTap': () {}},
+      {'icon': Icons.account_balance_outlined, 'text': 'Taxes/Loan', 'color': Colors.black, 'bgColor': Colors.grey.shade100, 'onTap': () {}},
     ];
 
     return Container(
@@ -273,30 +287,33 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 
   Widget _buildMenuItemSquare(Map<String, dynamic> item) {
-    return SizedBox(
-      width: 100,
-      child: Column(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: item['bgColor'],
-              borderRadius: BorderRadius.circular(12),
+    // Wrap the entire item with GestureDetector to make it tappable.
+    return GestureDetector(
+      onTap: item['onTap'], // Use the onTap function defined in the menuItems list
+      child: SizedBox(
+        width: 100,
+        child: Column(
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: item['bgColor'],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Icon(item['icon'], color: item['color'], size: 30),
+              ),
             ),
-            child: Center(
-              child: Icon(item['icon'], color: item['color'], size: 30),
+            const SizedBox(height: 8),
+            Text(
+              item['text'],
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            item['text'],
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
