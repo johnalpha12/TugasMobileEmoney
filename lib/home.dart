@@ -7,7 +7,9 @@ import 'history.dart';
 import 'pocket.dart';
 import 'qris.dart';
 import 'withdraw.dart';
-import 'taxes.dart'; 
+import 'taxes.dart';
+import 'loan.dart';
+import 'creditcard.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -87,15 +89,12 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 10),
                 const Text(
                   'Welcome to your digital wallet',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],
             ),
           ),
-          
+
           // Main Menu Section
           _buildDrawerItem(
             icon: Icons.home,
@@ -137,9 +136,9 @@ class _HomeState extends State<Home> {
               });
             },
           ),
-          
+
           const Divider(),
-          
+
           // Services Section
           _buildDrawerSection('Services'),
           _buildDrawerItem(
@@ -185,9 +184,9 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-          
+
           const Divider(),
-          
+
           // Financial Section
           _buildDrawerSection('Financial'),
           _buildDrawerItem(
@@ -212,12 +211,13 @@ class _HomeState extends State<Home> {
             },
           ),
           _buildDrawerItem(
-            icon: Icons.credit_card,
-            title: 'Credit Card',
+            icon: Icons.account_balance,
+            title: 'Loans',
             onTap: () {
               Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Credit Card feature coming soon!')),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoanPage()),
               );
             },
           ),
@@ -231,9 +231,9 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-          
+
           const Divider(),
-          
+
           // Utilities Section
           _buildDrawerSection('Utilities'),
           _buildDrawerItem(
@@ -267,9 +267,9 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-          
+
           const Divider(),
-          
+
           // Support Section
           _buildDrawerSection('Support'),
           _buildDrawerItem(
@@ -300,7 +300,7 @@ class _HomeState extends State<Home> {
               _showLogoutDialog(context);
             },
           ),
-          
+
           const SizedBox(height: 20),
         ],
       ),
@@ -328,10 +328,7 @@ class _HomeState extends State<Home> {
   }) {
     return ListTile(
       leading: Icon(icon, color: Colors.deepPurple),
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 16),
-      ),
+      title: Text(title, style: const TextStyle(fontSize: 16)),
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     );
@@ -381,7 +378,10 @@ class _HomeState extends State<Home> {
       },
       items: [
         const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        const BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.history),
+          label: "History",
+        ),
         BottomNavigationBarItem(
           icon: Container(
             padding: const EdgeInsets.all(12),
@@ -389,11 +389,18 @@ class _HomeState extends State<Home> {
               color: Colors.deepPurple,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.qr_code_scanner, color: Colors.white, size: 20),
+            child: const Icon(
+              Icons.qr_code_scanner,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
           label: "",
         ),
-        const BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: "Pocket"),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.account_balance_wallet),
+          label: "Pocket",
+        ),
         const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
       ],
     );
@@ -452,10 +459,14 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withAlpha((0.2 * 255).toInt()),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(Icons.menu, color: Colors.white, size: 20),
+                        child: const Icon(
+                          Icons.menu,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -501,7 +512,11 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                       color: Colors.blue[400],
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.mail, color: Colors.white, size: 16),
+                    child: const Icon(
+                      Icons.mail,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
                 ),
               ],
@@ -572,7 +587,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
             height: 55,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.white.withOpacity(0.6),
+                color: Colors.white.withAlpha((0.6 * 255).toInt()),
                 width: 1.5,
               ),
               borderRadius: BorderRadius.circular(10),
@@ -614,7 +629,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Title
               const Text(
                 'Choose Option',
@@ -625,7 +640,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Taxes Button
               GestureDetector(
                 onTap: () {
@@ -690,14 +705,14 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 15),
-              
+
               // Loan Button
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context); // Close drawer
-                  // TODO: Navigate to Loan page when created
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Loan page coming soon!')),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoanPage()),
                   );
                 },
                 child: Container(
@@ -764,8 +779,20 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
 
   Widget _buildMenuGrid() {
     final List<Map<String, dynamic>> menuItems = [
-      {'icon': Icons.credit_card_outlined, 'text': 'Accept and\nCard', 'color': Colors.blue, 'bgColor': Colors.blue.shade50, 'onTap': () {}},
-      {'icon': Icons.swap_horiz, 'text': 'Transfer', 'color': Colors.red.shade400, 'bgColor': Colors.red.shade50, 'onTap': () {}},
+      {
+        'icon': Icons.credit_card_outlined,
+        'text': 'Accept and\nCard',
+        'color': Colors.blue,
+        'bgColor': Colors.blue.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.swap_horiz,
+        'text': 'Transfer',
+        'color': Colors.red.shade400,
+        'bgColor': Colors.red.shade50,
+        'onTap': () {},
+      },
       {
         'icon': Icons.atm_outlined,
         'text': 'Withdraw',
@@ -778,20 +805,61 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
           );
         },
       },
-      {'icon': Icons.sim_card_outlined, 'text': 'Mobile\nPrepaid', 'color': Colors.amber, 'bgColor': Colors.amber.shade50, 'onTap': () {}},
-      {'icon': Icons.receipt_outlined, 'text': 'Pay the\nBill', 'color': Colors.teal, 'bgColor': Colors.teal.shade50, 'onTap': () {}},
-      {'icon': Icons.savings_outlined, 'text': 'Save\nonline', 'color': Colors.indigo, 'bgColor': Colors.indigo.shade50, 'onTap': () {}},
-      {'icon': Icons.credit_card_outlined, 'text': 'Credit\nCard', 'color': Colors.orange, 'bgColor': Colors.orange.shade50, 'onTap': () {}},
-      {'icon': Icons.receipt_long_outlined, 'text': 'Transaction\nReport', 'color': Colors.blue.shade700, 'bgColor': Colors.blue.shade50, 'onTap': () {}},
-      {'icon': Icons.person_add_outlined, 'text': 'Beneficiary', 'color': Colors.pink, 'bgColor': Colors.pink.shade50, 'onTap': () {}},
       {
-        'icon': Icons.account_balance_outlined, 
-        'text': 'Taxes/Loan', 
-        'color': Colors.black, 
-        'bgColor': Colors.grey.shade100, 
+        'icon': Icons.sim_card_outlined,
+        'text': 'Mobile\nPrepaid',
+        'color': Colors.amber,
+        'bgColor': Colors.amber.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.receipt_outlined,
+        'text': 'Pay the\nBill',
+        'color': Colors.teal,
+        'bgColor': Colors.teal.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.savings_outlined,
+        'text': 'Save\nonline',
+        'color': Colors.indigo,
+        'bgColor': Colors.indigo.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.credit_card_outlined,
+        'text': 'Credit\nCard',
+        'color': Colors.orange,
+        'bgColor': Colors.orange.shade50,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreditCardPaymentPage()),
+          );
+        },
+      },
+      {
+        'icon': Icons.receipt_long_outlined,
+        'text': 'Transaction\nReport',
+        'color': Colors.blue.shade700,
+        'bgColor': Colors.blue.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.person_add_outlined,
+        'text': 'Beneficiary',
+        'color': Colors.pink,
+        'bgColor': Colors.pink.shade50,
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.account_balance_outlined,
+        'text': 'Taxes/Loan',
+        'color': Colors.black,
+        'bgColor': Colors.grey.shade100,
         'onTap': () {
           _showTaxesLoanDrawer(context); // Panggil drawer ketika diklik
-        }
+        },
       },
     ];
 
@@ -800,14 +868,20 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
       child: Column(
         children: List.generate(4, (rowIndex) {
           final startIndex = rowIndex * 3;
-          final endIndex = (startIndex + 3 > menuItems.length) ? menuItems.length : startIndex + 3;
+          final endIndex =
+              (startIndex + 3 > menuItems.length)
+                  ? menuItems.length
+                  : startIndex + 3;
           final rowItems = menuItems.sublist(startIndex, endIndex);
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: rowItems.map((item) => _buildMenuItemSquare(item)).toList()
-                ..addAll(List.generate(3 - rowItems.length, (_) => const Spacer())),
+              children:
+                  rowItems.map((item) => _buildMenuItemSquare(item)).toList()
+                    ..addAll(
+                      List.generate(3 - rowItems.length, (_) => const Spacer()),
+                    ),
             ),
           );
         }),
