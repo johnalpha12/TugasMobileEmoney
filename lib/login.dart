@@ -78,10 +78,7 @@ class _LoginComponenState extends State<LoginComponen> {
                 SizedBox(height: 12),
                 Text(
                   'Dompet Digital untuk Anda!',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
                 SizedBox(height: 80),
                 Container(
@@ -128,9 +125,10 @@ class _LoginComponenState extends State<LoginComponen> {
                             _phoneController.text.isEmpty || !_isValid
                                 ? Icons.cancel
                                 : Icons.check_circle,
-                            color: _phoneController.text.isEmpty || !_isValid
-                                ? Colors.grey
-                                : Colors.green,
+                            color:
+                                _phoneController.text.isEmpty || !_isValid
+                                    ? Colors.grey
+                                    : Colors.green,
                           ),
                         ],
                       ),
@@ -143,23 +141,26 @@ class _LoginComponenState extends State<LoginComponen> {
                           ),
                           minimumSize: Size(double.infinity, 50),
                         ),
-                        onPressed: _isValid
-                            ? () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Password()),
-                                );
-                              }
-                            : () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content:
-                                        Text('Nomor HP harus 12 digit angka'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              },
+                        onPressed:
+                            _isValid
+                                ? () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Password(),
+                                    ),
+                                  );
+                                }
+                                : () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Nomor HP harus 12 digit angka',
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                },
                         child: Text(
                           'Lanjutkan',
                           style: TextStyle(color: Colors.white),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'home.dart';
 
 class BagiUangApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: BagiUangPage(), debugShowCheckedModeBanner: false);
+    return BagiUangPage();
   }
 }
 
@@ -29,19 +28,7 @@ class BagiUangPage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         title: Row(
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Icon(Icons.arrow_back, color: Colors.white),
-            ),
+            BackButton(color: Colors.white),
             SizedBox(width: 10),
             Text(
               "Minta Uang",
@@ -49,6 +36,7 @@ class BagiUangPage extends StatelessWidget {
             ),
           ],
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -63,7 +51,7 @@ class BagiUangPage extends StatelessWidget {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: "cari no hp/rekening bank",
+                    hintText: "cari nama atau no. hp",
                     border: InputBorder.none,
                     icon: Icon(Icons.search),
                   ),
@@ -72,9 +60,9 @@ class BagiUangPage extends StatelessWidget {
               SizedBox(height: 20),
               _buildSection("Kontak", contacts, isContact: true),
               SizedBox(height: 20),
-              _metodelainnya(),
+              _metodeLainnya(),
               SizedBox(height: 20),
-              _permintaanaktif(),
+              _permintaanAktif(),
             ],
           ),
         ),
@@ -133,7 +121,7 @@ class BagiUangPage extends StatelessWidget {
     );
   }
 
-  Widget _metodelainnya() {
+  Widget _metodeLainnya() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -152,7 +140,7 @@ class BagiUangPage extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton.icon(
-                  icon: Icon(FontAwesomeIcons.random),
+                  icon: Icon(FontAwesomeIcons.link),
                   label: Text("Link"),
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
@@ -182,7 +170,7 @@ class BagiUangPage extends StatelessWidget {
     );
   }
 
-  Widget _permintaanaktif() {
+  Widget _permintaanAktif() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,

@@ -8,7 +8,8 @@ class TaxesPage extends StatefulWidget {
   State<TaxesPage> createState() => _TaxesPageState();
 }
 
-class _TaxesPageState extends State<TaxesPage> with SingleTickerProviderStateMixin {
+class _TaxesPageState extends State<TaxesPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<Map<String, dynamic>> _taxHistory = [
     {
@@ -44,7 +45,7 @@ class _TaxesPageState extends State<TaxesPage> with SingleTickerProviderStateMix
       'period': 'Annual 2024',
     },
   ];
-  
+
   @override
   void initState() {
     super.initState();
@@ -88,10 +89,7 @@ class _TaxesPageState extends State<TaxesPage> with SingleTickerProviderStateMix
           indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          tabs: const [
-            Tab(text: 'Pay Tax'),
-            Tab(text: 'Tax History'),
-          ],
+          tabs: const [Tab(text: 'Pay Tax'), Tab(text: 'Tax History')],
         ),
       ),
       body: TabBarView(
@@ -111,8 +109,12 @@ class _TaxesPageState extends State<TaxesPage> with SingleTickerProviderStateMix
 class PayTaxTab extends StatefulWidget {
   final TabController tabController;
   final Function(Map<String, dynamic>) onPaymentSuccess;
-  
-  const PayTaxTab({super.key, required this.tabController, required this.onPaymentSuccess});
+
+  const PayTaxTab({
+    super.key,
+    required this.tabController,
+    required this.onPaymentSuccess,
+  });
 
   @override
   State<PayTaxTab> createState() => _PayTaxTabState();
@@ -123,7 +125,7 @@ class _PayTaxTabState extends State<PayTaxTab> {
   final _npwpController = TextEditingController();
   final _amountController = TextEditingController();
   final _descriptionController = TextEditingController();
-  
+
   String _selectedTaxType = 'PPh 21 (Income Tax)';
   String _selectedYear = '2024';
   String _selectedMonth = 'January';
@@ -139,8 +141,18 @@ class _PayTaxTabState extends State<PayTaxTab> {
 
   final List<String> _years = ['2024', '2023', '2022'];
   final List<String> _months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   @override
@@ -188,10 +200,7 @@ class _PayTaxTabState extends State<PayTaxTab> {
         children: [
           const Text(
             'Available Balance',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -244,7 +253,7 @@ class _PayTaxTabState extends State<PayTaxTab> {
             ),
           ),
           const SizedBox(height: 20),
-          
+
           // Tax Type Dropdown
           _buildDropdown(
             label: 'Tax Type',
@@ -311,7 +320,6 @@ class _PayTaxTabState extends State<PayTaxTab> {
             ],
           ),
           const SizedBox(height: 16),
-          
 
           // Amount Input
           _buildTextFormField(
@@ -384,12 +392,10 @@ class _PayTaxTabState extends State<PayTaxTab> {
             filled: true,
             fillColor: Colors.grey[50],
           ),
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
+          items:
+              items.map((String item) {
+                return DropdownMenuItem<String>(value: item, child: Text(item));
+              }).toList(),
           onChanged: onChanged,
         ),
       ],
@@ -490,7 +496,10 @@ class _PayTaxTabState extends State<PayTaxTab> {
             children: [
               _buildConfirmationRow('Tax Type:', _selectedTaxType),
               _buildConfirmationRow('NPWP:', _npwpController.text),
-              _buildConfirmationRow('Period:', '$_selectedMonth $_selectedYear'),
+              _buildConfirmationRow(
+                'Period:',
+                '$_selectedMonth $_selectedYear',
+              ),
               _buildConfirmationRow('Amount:', 'Rp ${_amountController.text}'),
             ],
           ),
@@ -533,9 +542,7 @@ class _PayTaxTabState extends State<PayTaxTab> {
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
-          Expanded(
-            child: Text(value),
-          ),
+          Expanded(child: Text(value)),
         ],
       ),
     );
@@ -549,14 +556,18 @@ class _PayTaxTabState extends State<PayTaxTab> {
   void _showPaymentSuccess() {
     // Generate new payment data
     final DateTime now = DateTime.now();
-    final String newId = 'TX${(DateTime.now().millisecondsSinceEpoch % 1000).toString().padLeft(3, '0')}';
-    final double amount = double.parse(_amountController.text.replaceAll(',', ''));
-    
+    final String newId =
+        'TX${(DateTime.now().millisecondsSinceEpoch % 1000).toString().padLeft(3, '0')}';
+    final double amount = double.parse(
+      _amountController.text.replaceAll(',', ''),
+    );
+
     final Map<String, dynamic> newPayment = {
       'id': newId,
       'type': _selectedTaxType,
       'amount': amount.toInt(),
-      'date': '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}',
+      'date':
+          '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}',
       'status': 'Completed',
       'period': '$_selectedMonth $_selectedYear',
     };
@@ -581,19 +592,12 @@ class _PayTaxTabState extends State<PayTaxTab> {
                     color: Colors.green,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 50,
-                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 50),
                 ),
                 const SizedBox(height: 20),
                 const Text(
                   'Payment Successful!',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -609,7 +613,9 @@ class _PayTaxTabState extends State<PayTaxTab> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close success dialog
-                    widget.onPaymentSuccess(newPayment); // Add payment to history
+                    widget.onPaymentSuccess(
+                      newPayment,
+                    ); // Add payment to history
                     _clearForm();
                     // Directly switch to history tab without delay
                     if (mounted) {
@@ -631,7 +637,9 @@ class _PayTaxTabState extends State<PayTaxTab> {
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close success dialog
-                    widget.onPaymentSuccess(newPayment); // Add payment to history
+                    widget.onPaymentSuccess(
+                      newPayment,
+                    ); // Add payment to history
                     _clearForm();
                   },
                   child: const Text(
@@ -663,7 +671,7 @@ class _PayTaxTabState extends State<PayTaxTab> {
 
 class TaxHistoryTab extends StatelessWidget {
   final List<Map<String, dynamic>> taxHistory;
-  
+
   const TaxHistoryTab({super.key, required this.taxHistory});
 
   @override
@@ -671,14 +679,14 @@ class TaxHistoryTab extends StatelessWidget {
     // Calculate totals dynamically
     final thisMonth = DateTime.now().month;
     final thisYear = DateTime.now().year;
-    
+
     int thisMonthTotal = 0;
     int thisYearTotal = 0;
-    
+
     for (var payment in taxHistory) {
       final paymentDate = DateTime.parse(payment['date']);
       final amount = payment['amount'] as int;
-      
+
       if (paymentDate.year == thisYear) {
         thisYearTotal += amount;
         if (paymentDate.month == thisMonth) {
@@ -703,9 +711,7 @@ class TaxHistoryTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          Expanded(
-            child: _buildHistoryList(),
-          ),
+          Expanded(child: _buildHistoryList()),
         ],
       ),
     );
@@ -735,7 +741,12 @@ class TaxHistoryTab extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryCard(String title, String amount, IconData icon, Color color) {
+  Widget _buildSummaryCard(
+    String title,
+    String amount,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -758,10 +769,7 @@ class TaxHistoryTab extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -793,16 +801,13 @@ class TaxHistoryTab extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'No tax payments yet',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
         ),
       );
     }
-    
+
     return ListView.builder(
       itemCount: taxHistory.length,
       itemBuilder: (context, index) {
@@ -838,7 +843,10 @@ class TaxHistoryTab extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade50,
                       borderRadius: BorderRadius.circular(12),
@@ -868,20 +876,14 @@ class TaxHistoryTab extends StatelessWidget {
                   ),
                   Text(
                     payment['date'],
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
               ),
               const SizedBox(height: 4),
               Text(
                 'Period: ${payment['period']} • ID: ${payment['id']}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -902,14 +904,14 @@ class _ThousandsSeparatorInputFormatter extends TextInputFormatter {
     }
 
     final String newText = newValue.text.replaceAll(',', '');
-    
+
     if (newText.isEmpty) {
       return newValue;
     }
 
     final StringBuffer buffer = StringBuffer();
     final int length = newText.length;
-    
+
     for (int i = 0; i < length; i++) {
       buffer.write(newText[i]);
       final int remaining = length - i - 1;
@@ -919,7 +921,7 @@ class _ThousandsSeparatorInputFormatter extends TextInputFormatter {
     }
 
     final String formattedText = buffer.toString();
-    
+
     return TextEditingValue(
       text: formattedText,
       selection: TextSelection.collapsed(offset: formattedText.length),

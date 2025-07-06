@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tugas/home.dart';
 
 class KirimUangApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: KirimUangPage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return KirimUangPage();
   }
 }
 
@@ -33,7 +29,6 @@ class KirimUangPage extends StatelessWidget {
     {'label': 'send to email', 'img': 'asset/ilogo7.png'},
     {'label': 'scan code QR', 'img': 'asset/ilogo8.png'},
     {'label': 'send to chat', 'img': 'asset/ilogo5.png'},
-    
   ];
 
   @override
@@ -44,21 +39,15 @@ class KirimUangPage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         title: Row(
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-              ),
-              onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              );
-            }, child: Icon(Icons.arrow_back, color: Colors.white,),),
+            BackButton(color: Colors.white),
             SizedBox(width: 10),
-            Text("Kirim Uang", style:TextStyle(fontSize: 20, color: Colors.white) ),
+            Text(
+              "Kirim Uang",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
           ],
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -76,10 +65,8 @@ class KirimUangPage extends StatelessWidget {
                     hintText: "cari no hp/rekening bank",
                     border: InputBorder.none,
                     icon: Icon(Icons.search),
-
                   ),
                 ),
-                
               ),
               SizedBox(height: 20),
               _buildSection("contacts", contacts, isContact: true),
@@ -92,30 +79,55 @@ class KirimUangPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String sectionTitle, List<Map<String, String>> items, {bool isContact = false}) {
+  Widget _buildSection(
+    String sectionTitle,
+    List<Map<String, String>> items, {
+    bool isContact = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.all(16),
-      child: Wrap(
-        spacing: 20,
-        runSpacing: 20,
-        children: items.map((item) {
-          return SizedBox(
-            width: 80,
-            child: Column(
-              children: [
-                ClipOval(
-                  child: Image.asset(item['img']!, width: 50, height: 50),
-                ),
-                SizedBox(height: 10),
-                Text(item[isContact ? 'name' : 'label']!, textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
-              ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Text(
+              sectionTitle,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          );
-        }).toList(),
+          ),
+          Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            children:
+                items.map((item) {
+                  return SizedBox(
+                    width: 80,
+                    child: Column(
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            item['img']!,
+                            width: 50,
+                            height: 50,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          item[isContact ? 'name' : 'label']!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+          ),
+        ],
       ),
     );
   }

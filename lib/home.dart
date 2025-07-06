@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas/kirim_uang.dart';
 import 'package:tugas/minta_uang.dart';
+import 'package:tugas/settings.dart';
 import 'profile.dart';
 import 'inbox.dart';
 import 'history.dart';
@@ -10,7 +11,7 @@ import 'withdraw.dart';
 import 'taxes.dart';
 import 'loan.dart';
 import 'creditcard.dart';
-import 'package:tugas/beneficiary.dart';
+import 'beneficiary.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -33,8 +34,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: _buildNavigationDrawer(), // Add navigation drawer
+      drawer: _buildNavigationDrawer(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: _buildBottomNavBar(),
     );
@@ -95,16 +95,12 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-
-          // Main Menu Section
           _buildDrawerItem(
             icon: Icons.home,
             title: 'Home',
             onTap: () {
               Navigator.pop(context);
-              setState(() {
-                _selectedIndex = 0;
-              });
+              setState(() => _selectedIndex = 0);
             },
           ),
           _buildDrawerItem(
@@ -112,9 +108,7 @@ class _HomeState extends State<Home> {
             title: 'Profile',
             onTap: () {
               Navigator.pop(context);
-              setState(() {
-                _selectedIndex = 4;
-              });
+              setState(() => _selectedIndex = 4);
             },
           ),
           _buildDrawerItem(
@@ -122,9 +116,7 @@ class _HomeState extends State<Home> {
             title: 'My Pocket',
             onTap: () {
               Navigator.pop(context);
-              setState(() {
-                _selectedIndex = 3;
-              });
+              setState(() => _selectedIndex = 3);
             },
           ),
           _buildDrawerItem(
@@ -132,15 +124,10 @@ class _HomeState extends State<Home> {
             title: 'Transaction History',
             onTap: () {
               Navigator.pop(context);
-              setState(() {
-                _selectedIndex = 1;
-              });
+              setState(() => _selectedIndex = 1);
             },
           ),
-
           const Divider(),
-
-          // Services Section
           _buildDrawerSection('Services'),
           _buildDrawerItem(
             icon: Icons.attach_money,
@@ -169,9 +156,7 @@ class _HomeState extends State<Home> {
             title: 'QR Scanner',
             onTap: () {
               Navigator.pop(context);
-              setState(() {
-                _selectedIndex = 2;
-              });
+              setState(() => _selectedIndex = 2);
             },
           ),
           _buildDrawerItem(
@@ -185,10 +170,7 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-
           const Divider(),
-
-          // Financial Section
           _buildDrawerSection('Financial'),
           _buildDrawerItem(
             icon: Icons.receipt_long,
@@ -198,16 +180,6 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const TaxesPage()),
-              );
-            },
-          ),
-          _buildDrawerItem(
-            icon: Icons.account_balance,
-            title: 'Loans',
-            onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Loan feature coming soon!')),
               );
             },
           ),
@@ -226,35 +198,23 @@ class _HomeState extends State<Home> {
             icon: Icons.savings,
             title: 'Savings',
             onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Savings feature coming soon!')),
-              );
+              // Placeholder
             },
           ),
-
           const Divider(),
-
-          // Utilities Section
           _buildDrawerSection('Utilities'),
           _buildDrawerItem(
             icon: Icons.receipt,
             title: 'Bill Payments',
             onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Bill Payments coming soon!')),
-              );
+              // Placeholder
             },
           ),
           _buildDrawerItem(
             icon: Icons.phone_android,
             title: 'Mobile Prepaid',
             onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Mobile Prepaid coming soon!')),
-              );
+              // Placeholder
             },
           ),
           _buildDrawerItem(
@@ -268,19 +228,13 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-
           const Divider(),
-
-          // Support Section
           _buildDrawerSection('Support'),
           _buildDrawerItem(
             icon: Icons.help_outline,
             title: 'Help & Support',
             onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Help & Support coming soon!')),
-              );
+              // Placeholder
             },
           ),
           _buildDrawerItem(
@@ -288,8 +242,9 @@ class _HomeState extends State<Home> {
             title: 'Settings',
             onTap: () {
               Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Settings coming soon!')),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
               );
             },
           ),
@@ -301,7 +256,6 @@ class _HomeState extends State<Home> {
               _showLogoutDialog(context);
             },
           ),
-
           const SizedBox(height: 20),
         ],
       ),
@@ -345,18 +299,13 @@ class _HomeState extends State<Home> {
           actions: [
             TextButton(
               child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
               child: const Text('Logout'),
               onPressed: () {
                 Navigator.of(context).pop();
                 // Add logout logic here
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Logged out successfully!')),
-                );
               },
             ),
           ],
@@ -452,11 +401,8 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
               children: [
                 Row(
                   children: [
-                    // Add drawer menu button
                     GestureDetector(
-                      onTap: () {
-                        Scaffold.of(context).openDrawer();
-                      },
+                      onTap: () => Scaffold.of(context).openDrawer(),
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
@@ -501,12 +447,11 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Inbox()),
-                    );
-                  },
+                  onTap:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Inbox()),
+                      ),
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
@@ -535,11 +480,9 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
                 const SizedBox(width: 10),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isAmountVisible = !_isAmountVisible;
-                    });
-                  },
+                  onTap:
+                      () =>
+                          setState(() => _isAmountVisible = !_isAmountVisible),
                   child: Icon(
                     _isAmountVisible ? Icons.lock_open : Icons.lock_outline,
                     color: Colors.white,
@@ -602,7 +545,6 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
     );
   }
 
-  // Fungsi untuk menampilkan drawer
   void _showTaxesLoanDrawer(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -619,7 +561,6 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Handle bar
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 width: 40,
@@ -630,8 +571,6 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Title
               const Text(
                 'Choose Option',
                 style: TextStyle(
@@ -641,11 +580,9 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Taxes Button
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context); // Close drawer
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const TaxesPage()),
@@ -706,11 +643,9 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
                 ),
               ),
               const SizedBox(height: 15),
-
-              // Loan Button
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context); // Close drawer
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const LoanPage()),
@@ -799,12 +734,11 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
         'text': 'Withdraw',
         'color': Colors.blue,
         'bgColor': Colors.blue.shade50,
-        'onTap': () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const WithdrawPage()),
-          );
-        },
+        'onTap':
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const WithdrawPage()),
+            ),
       },
       {
         'icon': Icons.sim_card_outlined,
@@ -832,12 +766,11 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
         'text': 'Credit\nCard',
         'color': Colors.orange,
         'bgColor': Colors.orange.shade50,
-        'onTap': () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreditCardPaymentPage()),
-          );
-        },
+        'onTap':
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreditCardPaymentPage()),
+            ),
       },
       {
         'icon': Icons.receipt_long_outlined,
@@ -851,28 +784,25 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
         'text': 'Beneficiary',
         'color': Colors.pink,
         'bgColor': Colors.pink.shade50,
-        'onTap': () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const BeneficiaryPage()),
-          );
-        },
+        'onTap':
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BeneficiaryPage()),
+            ),
       },
       {
         'icon': Icons.account_balance_outlined,
         'text': 'Taxes/Loan',
         'color': Colors.black,
         'bgColor': Colors.grey.shade100,
-        'onTap': () {
-          _showTaxesLoanDrawer(context); // Panggil drawer ketika diklik
-        },
+        'onTap': () => _showTaxesLoanDrawer(context),
       },
     ];
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
-        children: List.generate(4, (rowIndex) {
+        children: List.generate((menuItems.length / 3).ceil(), (rowIndex) {
           final startIndex = rowIndex * 3;
           final endIndex =
               (startIndex + 3 > menuItems.length)
