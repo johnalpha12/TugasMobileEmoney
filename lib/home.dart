@@ -10,6 +10,7 @@ import 'withdraw.dart';
 import 'taxes.dart';
 import 'loan.dart';
 import 'creditcard.dart';
+import 'package:tugas/beneficiary.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -850,7 +851,12 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
         'text': 'Beneficiary',
         'color': Colors.pink,
         'bgColor': Colors.pink.shade50,
-        'onTap': () {},
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BeneficiaryPage()),
+          );
+        },
       },
       {
         'icon': Icons.account_balance_outlined,
