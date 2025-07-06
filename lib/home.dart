@@ -3,7 +3,7 @@ import 'profile_page.dart';
 import 'inbox.dart';
 import 'history.dart';
 import 'pocket.dart'; // Import file pocket.dart
-import 'promo_banner.dart'; // Tambahkan import ini
+import 'promo_banner.dart'; // Tambahkan import untuk halaman promo
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
     const HomePageContent(),
     const History(),
     ScanQr(),
-    const Pocket(),
+    const Pocket(), // Menggunakan widget Pocket dari pocket.dart
     const PromoBannerPage(), // Tambahkan halaman promo di sini
     const ProfilePage(),
   ];
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
           label: "",
         ),
         const BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: "Pocket"),
-        const BottomNavigationBarItem(icon: Icon(Icons.campaign), label: "Promo"), // Tambahkan tab promo
+        const BottomNavigationBarItem(icon: Icon(Icons.campaign), label: "Promo"), // Tab promo
         const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Me"),
       ],
     );

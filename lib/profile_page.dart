@@ -117,6 +117,53 @@ class _ProfilePageState extends State<ProfilePage> {
                     buildGoalCard("Cicil Kpr Rumah", 5200000, 0.22),
                     buildGoalCard("Tabungan", 25700000, 0.71),
                     buildGoalCard("Beli Monitor", 2400000, 0.83),
+                    const SizedBox(height: 30),
+                    // Tambahkan tombol Switch Account
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.switch_account, color: Colors.deepPurple),
+                        label: const Text(
+                          "Switch Account",
+                          style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.deepPurple),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        onPressed: () {
+                          // TODO: Implementasi logika switch account
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Switch Account clicked!')),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Tambahkan tombol Logout
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.logout, color: Colors.red),
+                        label: const Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.red),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        onPressed: () {
+                          // TODO: Implementasi logika logout
+                          Navigator.of(context).popUntil((route) => route.isFirst);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
