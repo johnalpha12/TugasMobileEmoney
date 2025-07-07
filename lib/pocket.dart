@@ -161,6 +161,7 @@ class _AddCardButtonState extends State<AddCardButton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.deepPurple,
         title: const Text('Add Card', style: TextStyle(color: Colors.white)),
       ),

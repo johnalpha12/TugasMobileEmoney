@@ -12,6 +12,8 @@ import 'taxes.dart';
 import 'loan.dart';
 import 'creditcard.dart';
 import 'beneficiary.dart';
+import 'topup.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -375,6 +377,7 @@ class HomeHeaderBody extends StatefulWidget {
 
 class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   bool _isAmountVisible = true;
+  int _currentBalance = 15000000;
 
   @override
   Widget build(BuildContext context) {
@@ -471,13 +474,16 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
             Row(
               children: [
                 Text(
-                  _isAmountVisible ? 'Rp. 15.000.000' : '••••••••••••',
+                  _isAmountVisible
+                      ? 'Rp. ${NumberFormat('#,###', 'id_ID').format(_currentBalance)}'
+                      : '••••••••••••',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                   ),
                 ),
+
                 const SizedBox(width: 10),
                 GestureDetector(
                   onTap:
@@ -503,8 +509,25 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildHeaderButton(Icons.qr_code_scanner, 'Pindai', () {}),
-        _buildHeaderButton(Icons.add, 'Isi Saldo', () {}),
+        _buildHeaderButton(Icons.qr_code_scanner, 'Pindai', () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QrisPage()),
+          );
+        }),
+        _buildHeaderButton(Icons.add, 'Isi Saldo', () async {
+          final added = await Navigator.push<int>(
+            context,
+            MaterialPageRoute(
+              builder: (_) => TopUpPage(currentBalance: _currentBalance),
+            ),
+          );
+
+          if (added != null && added > 0) {
+            setState(() => _currentBalance += added);
+          }
+        }),
+
         _buildHeaderButton(Icons.attach_money, 'Kirim', () {
           Navigator.push(
             context,
