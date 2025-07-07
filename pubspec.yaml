@@ -91,6 +91,7 @@ flutter:
     - asset/ilogo6.png
     - asset/ilogo7.png
     - asset/ilogo8.png
+    - asset/kodeqr.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -15,10 +15,7 @@ class Pocket extends StatelessWidget {
 class PocketBuild extends StatefulWidget {
   const PocketBuild({super.key});
 
-  static List<String> cards = [
-    '**** **** **** 1234',
-    '**** **** **** 5678',
-  ];
+  static List<String> cards = ['**** **** **** 1234', '**** **** **** 5678'];
 
   @override
   State<PocketBuild> createState() => _PocketBuildState();
@@ -38,92 +35,100 @@ class _PocketBuildState extends State<PocketBuild> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Cari Kartu',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Cari Kartu',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ...PocketBuild.cards.map((card) {
-              int index = PocketBuild.cards.indexOf(card) + 1;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Card $index',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade300,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        card,
-                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              const SizedBox(height: 20),
+              ...PocketBuild.cards.map((card) {
+                int index = PocketBuild.cards.indexOf(card) + 1;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Card $index',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              );
-            }).toList(),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Save your bank cards!',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AddCardButton()),
-                      );
-                      setState(() {}); 
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.deepPurple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: const BorderSide(color: Colors.deepPurple),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: double.infinity,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade300,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          card,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    child: const Text('+ ADD'),
-                  ),
-                ],
+                    const SizedBox(height: 20),
+                  ],
+                );
+              }).toList(),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Save your bank cards!',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddCardButton(),
+                          ),
+                        );
+                        setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.deepPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: const BorderSide(color: Colors.deepPurple),
+                        ),
+                      ),
+                      child: const Text('+ ADD'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
 }
-
 
 class AddCardButton extends StatefulWidget {
   const AddCardButton({super.key});
@@ -149,9 +154,7 @@ class _AddCardButtonState extends State<AddCardButton> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PreviewCardScreen(
-            maskedNumber: masked,
-          ),
+          builder: (context) => PreviewCardScreen(maskedNumber: masked),
         ),
       );
     }
@@ -209,10 +212,7 @@ class _AddCardButtonState extends State<AddCardButton> {
 class PreviewCardScreen extends StatelessWidget {
   final String maskedNumber;
 
-  const PreviewCardScreen({
-    super.key,
-    required this.maskedNumber,
-  });
+  const PreviewCardScreen({super.key, required this.maskedNumber});
 
   void _submitCard(BuildContext context) {
     PocketBuild.cards.add(maskedNumber);
@@ -224,7 +224,10 @@ class PreviewCardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: const Text('Card Preview', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Card Preview',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
