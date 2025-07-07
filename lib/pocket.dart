@@ -37,7 +37,8 @@ class _PocketBuildState extends State<PocketBuild> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +101,7 @@ class _PocketBuildState extends State<PocketBuild> {
                         context,
                         MaterialPageRoute(builder: (context) => const AddCardButton()),
                       );
-                      setState(() {});
+                      setState(() {}); 
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -117,6 +118,7 @@ class _PocketBuildState extends State<PocketBuild> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
