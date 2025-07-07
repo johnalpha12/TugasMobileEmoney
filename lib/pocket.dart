@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 class Pocket extends StatelessWidget {
   const Pocket({super.key});
 
+  static List<String> cards = [
+    '**** **** **** 1234',
+    '**** **** **** 5678',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,45 +35,34 @@ class Pocket extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Card 1',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.deepPurple.shade300,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: const Center(
-                child: Text(
-                  '**** **** **** 1234',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Card 2',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.deepPurple.shade300,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: const Center(
-                child: Text(
-                  '**** **** **** 5678',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            ...cards.map((card) {
+              int index = cards.indexOf(card) + 1;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Card $index',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.shade300,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        card,
+                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              );
+            }).toList(),
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -85,7 +79,10 @@ class Pocket extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Add new card functionality
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const AddCardButton()),
+                      // );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -106,3 +103,4 @@ class Pocket extends StatelessWidget {
     );
   }
 }
+

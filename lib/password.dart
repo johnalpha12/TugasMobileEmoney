@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SecurtyCode.dart';
+import 'forgotpin.dart';
 
 class Password extends StatelessWidget {
   @override
@@ -95,14 +96,17 @@ class _PasswordComponenState extends State<PasswordComponen> {
             ),
             SizedBox(height: 20),
             GestureDetector(
-              onTap: () {
-                // Tambahkan aksi lupa PIN di sini
-              },
-              child: Text(
-                'Forgot PIN',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ForgotPinPage()),
+    );
+  },
+  child: Text(
+    'Forgot PIN',
+    style: TextStyle(color: Colors.white),
+  ),
+),
             SizedBox(height: 20),
             _buildKeypad(),
             SizedBox(height: 20),

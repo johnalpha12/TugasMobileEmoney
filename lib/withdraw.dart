@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cair.dart';
 
 class WithdrawOption {
   final String name;
@@ -66,14 +67,14 @@ class _WithdrawPageState extends State<WithdrawPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'Metode penarikan',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
+                color: Colors.black87,
               ),
             ),
           ),
@@ -127,8 +128,11 @@ class _WithdrawPageState extends State<WithdrawPage> {
             size: 18,
           ),
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Anda memilih ${option.name}')),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CairPage(bankName: option.name),
+              ),
             );
           },
         ),
