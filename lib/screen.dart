@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'login.dart';
 
-
 class Screen extends StatefulWidget {
   const Screen({super.key});
 
@@ -15,9 +14,9 @@ class _ScreenState extends State<Screen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => Login()),
-      );
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => Login()));
     });
   }
 
@@ -25,9 +24,7 @@ class _ScreenState extends State<Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
-      body: Center(
-        child: Image.asset('asset/logo.png'),
-      ),
+      body: Center(child: Image.asset('asset/logo.png')),
     );
   }
 }

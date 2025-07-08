@@ -18,8 +18,10 @@ class PasswordComponen extends StatefulWidget {
 }
 
 class _PasswordComponenState extends State<PasswordComponen> {
-  final List<TextEditingController> _pinControllers =
-      List.generate(5, (_) => TextEditingController());
+  final List<TextEditingController> _pinControllers = List.generate(
+    5,
+    (_) => TextEditingController(),
+  );
 
   void _handleKeypadInput(String value) {
     for (final controller in _pinControllers) {
@@ -57,56 +59,50 @@ class _PasswordComponenState extends State<PasswordComponen> {
           children: [
             Text(
               'Masukkan PIN Anda',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 22),
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: _pinControllers
-                  .map((controller) => Container(
-                        width: 50,
-                        height: 50,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        child: TextField(
-                          controller: controller,
-                          maxLength: 1,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            counterText: '',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(5),
+              children:
+                  _pinControllers
+                      .map(
+                        (controller) => Container(
+                          width: 50,
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          child: TextField(
+                            controller: controller,
+                            maxLength: 1,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              counterText: '',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                             ),
                           ),
                         ),
-                      ))
-                  .toList(),
+                      )
+                      .toList(),
             ),
             SizedBox(height: 20),
             GestureDetector(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ForgotPinPage()),
-    );
-  },
-  child: Text(
-    'Forgot PIN',
-    style: TextStyle(color: Colors.white),
-  ),
-),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ForgotPinPage()),
+                );
+              },
+              child: Text('Forgot PIN', style: TextStyle(color: Colors.white)),
+            ),
             SizedBox(height: 20),
             _buildKeypad(),
             SizedBox(height: 20),
@@ -135,7 +131,7 @@ class _PasswordComponenState extends State<PasswordComponen> {
                 }
               },
               child: Text('Continue'),
-            )
+            ),
           ],
         ),
       ),
@@ -143,12 +139,7 @@ class _PasswordComponenState extends State<PasswordComponen> {
   }
 
   Widget _buildKeypad() {
-    final buttons = [
-      '1', '2', '3',
-      '4', '5', '6',
-      '7', '8', '9',
-      '', '0', '⌫'
-    ];
+    final buttons = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫'];
 
     return GridView.count(
       crossAxisCount: 3,
@@ -156,15 +147,16 @@ class _PasswordComponenState extends State<PasswordComponen> {
       mainAxisSpacing: 15,
       crossAxisSpacing: 15,
       padding: EdgeInsets.symmetric(horizontal: 60),
-      children: buttons.map((text) {
-        if (text == '') {
-          return SizedBox.shrink();
-        } else if (text == '⌫') {
-          return _keypadButton(text, _handleDelete);
-        } else {
-          return _keypadButton(text, () => _handleKeypadInput(text));
-        }
-      }).toList(),
+      children:
+          buttons.map((text) {
+            if (text == '') {
+              return SizedBox.shrink();
+            } else if (text == '⌫') {
+              return _keypadButton(text, _handleDelete);
+            } else {
+              return _keypadButton(text, () => _handleKeypadInput(text));
+            }
+          }).toList(),
     );
   }
 
@@ -179,10 +171,7 @@ class _PasswordComponenState extends State<PasswordComponen> {
         minimumSize: Size(60, 60),
       ),
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 24),
-      ),
+      child: Text(text, style: TextStyle(fontSize: 24)),
     );
   }
 }

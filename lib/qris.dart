@@ -69,10 +69,21 @@ class QrisPage extends StatelessWidget {
       ),
       child: Stack(
         children: const [
-          Positioned(top: 8, left: 8, child: Icon(Icons.image, color: Colors.white)),
-          Positioned(top: 8, right: 8, child: Icon(Icons.edit, color: Colors.white)),
+          Positioned(
+            top: 8,
+            left: 8,
+            child: Icon(Icons.image, color: Colors.white),
+          ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: Icon(Icons.edit, color: Colors.white),
+          ),
           Center(
-            child: Text('QRIS', style: TextStyle(color: Colors.white, fontSize: 20)),
+            child: Text(
+              'QRIS',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
           ),
         ],
       ),
@@ -113,7 +124,10 @@ class _HeaderButton extends StatelessWidget {
           width: 55,
           height: 55,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white.withOpacity(0.6), width: 1.5),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.6),
+              width: 1.5,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, color: Colors.white, size: 26),

@@ -21,8 +21,10 @@ class PasswordComponent extends StatefulWidget {
 }
 
 class _PasswordComponentState extends State<PasswordComponent> {
-  final List<TextEditingController> _pinControllers =
-      List.generate(5, (_) => TextEditingController());
+  final List<TextEditingController> _pinControllers = List.generate(
+    5,
+    (_) => TextEditingController(),
+  );
 
   void _handleKeypadInput(String value) {
     for (final controller in _pinControllers) {
@@ -71,38 +73,45 @@ class _PasswordComponentState extends State<PasswordComponent> {
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: _pinControllers.map((controller) {
-              return Container(
-                width: 50,
-                height: 50,
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                child: TextField(
-                  controller: controller,
-                  maxLength: 1,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18, color: Colors.white),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(5),
+            children:
+                _pinControllers.map((controller) {
+                  return Container(
+                    width: 50,
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: TextField(
+                      controller: controller,
+                      maxLength: 1,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+                  );
+                }).toList(),
           ),
           const SizedBox(height: 20),
           GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ForgotPinPage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ForgotPinPage()),
+              );
             },
-            child: const Text('Forgot PIN', style: TextStyle(color: Colors.white)),
+            child: const Text(
+              'Forgot PIN',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           const SizedBox(height: 20),
           _buildKeypad(),
@@ -111,7 +120,9 @@ class _PasswordComponentState extends State<PasswordComponent> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: Colors.deepPurple,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
               minimumSize: const Size(200, 50),
             ),
             onPressed: () {
@@ -127,7 +138,7 @@ class _PasswordComponentState extends State<PasswordComponent> {
               }
             },
             child: const Text('Continue'),
-          )
+          ),
         ],
       ),
     );
@@ -141,15 +152,16 @@ class _PasswordComponentState extends State<PasswordComponent> {
       mainAxisSpacing: 15,
       crossAxisSpacing: 15,
       padding: const EdgeInsets.symmetric(horizontal: 60),
-      children: buttons.map((text) {
-        if (text == '') {
-          return const SizedBox.shrink();
-        } else if (text == '⌫') {
-          return _keypadButton(text, _handleDelete);
-        } else {
-          return _keypadButton(text, () => _handleKeypadInput(text));
-        }
-      }).toList(),
+      children:
+          buttons.map((text) {
+            if (text == '') {
+              return const SizedBox.shrink();
+            } else if (text == '⌫') {
+              return _keypadButton(text, _handleDelete);
+            } else {
+              return _keypadButton(text, () => _handleKeypadInput(text));
+            }
+          }).toList(),
     );
   }
 

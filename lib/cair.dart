@@ -64,11 +64,15 @@ class _CairPageState extends State<CairPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Metode: ${widget.bankName}',
-                style: TextStyle(fontSize: 18, color: Colors.white)),
+            Text(
+              'Metode: ${widget.bankName}',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
             SizedBox(height: 20),
-            Text('Nominal Penarikan',
-                style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text(
+              'Nominal Penarikan',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
             SizedBox(height: 8),
             TextField(
               controller: _amountController,
@@ -86,8 +90,10 @@ class _CairPageState extends State<CairPage> {
               ),
             ),
             SizedBox(height: 20),
-            Text('Masukkan PIN',
-                style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text(
+              'Masukkan PIN',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
             SizedBox(height: 8),
             TextField(
               controller: _pinController,

@@ -43,7 +43,8 @@ class _ForgotPinPageState extends State<ForgotPinPage> {
         title: Text('Reset PIN', style: TextStyle(color: Colors.white)),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,22 +58,22 @@ class _ForgotPinPageState extends State<ForgotPinPage> {
             ),
             SizedBox(height: 30),
             TextField(
-  controller: phoneController,
-  keyboardType: TextInputType.phone,
-  maxLength: 12, // Batas maksimal 12 digit
-  style: TextStyle(color: Colors.white),
-  decoration: InputDecoration(
-    counterText: '', // Menghilangkan teks penghitung karakter
-    hintText: 'Nomor Telepon',
-    hintStyle: TextStyle(color: Colors.white54),
-    filled: true,
-    fillColor: Colors.deepPurple.shade400,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide.none,
-    ),
-  ),
-),
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              maxLength: 12, // Batas maksimal 12 digit
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                counterText: '', // Menghilangkan teks penghitung karakter
+                hintText: 'Nomor Telepon',
+                hintStyle: TextStyle(color: Colors.white54),
+                filled: true,
+                fillColor: Colors.deepPurple.shade400,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
             SizedBox(height: 20),
             TextField(
               controller: newPinController,
@@ -108,6 +109,7 @@ class _ForgotPinPageState extends State<ForgotPinPage> {
           ],
         ),
       ),
+    )
     );
   }
 }

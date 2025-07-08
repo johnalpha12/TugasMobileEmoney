@@ -32,7 +32,8 @@ class _InboxState extends State<Inbox> {
     Message(
       sender: 'CashEase Support',
       subject: 'Transaction Confirmation',
-      content: 'Your recent transfer of Rp. 500.000 to Jane Doe was successful.',
+      content:
+          'Your recent transfer of Rp. 500.000 to Jane Doe was successful.',
       time: 'Yesterday',
       date: DateTime.now().subtract(const Duration(days: 1)),
       isRead: true,
@@ -53,12 +54,13 @@ class _InboxState extends State<Inbox> {
       date: DateTime.now().subtract(const Duration(days: 6)),
       isRead: true,
     ),
-    
+
     // Less than 20 days
     Message(
       sender: 'CashEase Rewards',
       subject: 'You\'ve earned points!',
-      content: 'You\'ve earned 500 reward points from your recent transactions.',
+      content:
+          'You\'ve earned 500 reward points from your recent transactions.',
       time: '12 days ago',
       date: DateTime.now().subtract(const Duration(days: 12)),
       isRead: true,
@@ -66,7 +68,8 @@ class _InboxState extends State<Inbox> {
     Message(
       sender: 'Partner Offers',
       subject: 'Exclusive Dining Discount',
-      content: 'Enjoy 20% off at selected restaurants when you pay with CashEase.',
+      content:
+          'Enjoy 20% off at selected restaurants when you pay with CashEase.',
       time: '15 days ago',
       date: DateTime.now().subtract(const Duration(days: 15)),
       isRead: false,
@@ -79,7 +82,7 @@ class _InboxState extends State<Inbox> {
       date: DateTime.now().subtract(const Duration(days: 18)),
       isRead: true,
     ),
-    
+
     // Less than 30 days
     Message(
       sender: 'CashEase Support',
@@ -105,7 +108,7 @@ class _InboxState extends State<Inbox> {
       date: DateTime.now().subtract(const Duration(days: 29)),
       isRead: true,
     ),
-    
+
     // More than 30 days
     Message(
       sender: 'CashEase Team',
@@ -132,7 +135,7 @@ class _InboxState extends State<Inbox> {
       isRead: true,
     ),
   ];
-  
+
   // Filtered messages list
   late List<Message> _messages;
 
@@ -147,21 +150,31 @@ class _InboxState extends State<Inbox> {
   void _filterMessages(String filter) {
     setState(() {
       _selectedFilter = filter;
-      
+
       if (filter == 'All Messages') {
         _messages = _allMessages;
       } else if (filter == 'Less than 10 days') {
-        _messages = _allMessages.where((msg) => 
-          DateTime.now().difference(msg.date).inDays < 10).toList();
+        _messages =
+            _allMessages
+                .where((msg) => DateTime.now().difference(msg.date).inDays < 10)
+                .toList();
       } else if (filter == 'Less than 20 days') {
-        _messages = _allMessages.where((msg) => 
-          DateTime.now().difference(msg.date).inDays < 20).toList();
+        _messages =
+            _allMessages
+                .where((msg) => DateTime.now().difference(msg.date).inDays < 20)
+                .toList();
       } else if (filter == 'Less than 30 days') {
-        _messages = _allMessages.where((msg) => 
-          DateTime.now().difference(msg.date).inDays < 30).toList();
+        _messages =
+            _allMessages
+                .where((msg) => DateTime.now().difference(msg.date).inDays < 30)
+                .toList();
       } else if (filter == 'More than 30 days') {
-        _messages = _allMessages.where((msg) => 
-          DateTime.now().difference(msg.date).inDays >= 30).toList();
+        _messages =
+            _allMessages
+                .where(
+                  (msg) => DateTime.now().difference(msg.date).inDays >= 30,
+                )
+                .toList();
       }
     });
   }
@@ -172,10 +185,7 @@ class _InboxState extends State<Inbox> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: const Text(
-          'Messages',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Messages', style: TextStyle(color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
@@ -197,9 +207,7 @@ class _InboxState extends State<Inbox> {
               children: [
                 const Text(
                   'Filter by: ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -214,13 +222,17 @@ class _InboxState extends State<Inbox> {
                       child: DropdownButton<String>(
                         value: _selectedFilter,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: Colors.deepPurple),
-                        items: _filterOptions.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.deepPurple,
+                        ),
+                        items:
+                            _filterOptions.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             _filterMessages(newValue);
@@ -235,14 +247,15 @@ class _InboxState extends State<Inbox> {
           ),
           // List of messages or empty state
           Expanded(
-            child: _messages.isEmpty
-                ? _buildEmptyState()
-                : ListView.builder(
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      return _buildMessageTile(_messages[index]);
-                    },
-                  ),
+            child:
+                _messages.isEmpty
+                    ? _buildEmptyState()
+                    : ListView.builder(
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        return _buildMessageTile(_messages[index]);
+                      },
+                    ),
           ),
         ],
       ),
@@ -254,11 +267,7 @@ class _InboxState extends State<Inbox> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.mail_outline,
-            size: 80,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.mail_outline, size: 80, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
             'No Messages',
@@ -271,9 +280,7 @@ class _InboxState extends State<Inbox> {
           const SizedBox(height: 8),
           Text(
             'You don\'t have any messages yet',
-            style: TextStyle(
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(color: Colors.grey[500]),
           ),
         ],
       ),
@@ -284,9 +291,7 @@ class _InboxState extends State<Inbox> {
     return Container(
       decoration: BoxDecoration(
         color: message.isRead ? Colors.white : Colors.blue[50],
-        border: Border(
-          bottom: BorderSide(color: Colors.grey[200]!),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -316,9 +321,7 @@ class _InboxState extends State<Inbox> {
               message.content,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(color: Colors.grey[600]),
             ),
           ],
         ),
@@ -328,10 +331,7 @@ class _InboxState extends State<Inbox> {
           children: [
             Text(
               message.time,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             ),
             const SizedBox(height: 4),
             if (!message.isRead)
@@ -406,23 +406,29 @@ class MessageDetailPage extends StatelessWidget {
               // Show delete confirmation
               showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Delete Message'),
-                  content: const Text('Are you sure you want to delete this message?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Cancel'),
+                builder:
+                    (context) => AlertDialog(
+                      title: const Text('Delete Message'),
+                      content: const Text(
+                        'Are you sure you want to delete this message?',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context); // Close dialog
+                            Navigator.pop(context); // Go back to inbox
+                          },
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Close dialog
-                        Navigator.pop(context); // Go back to inbox
-                      },
-                      child: const Text('Delete', style: TextStyle(color: Colors.red)),
-                    ),
-                  ],
-                ),
               );
             },
           ),
@@ -435,10 +441,7 @@ class MessageDetailPage extends StatelessWidget {
           children: [
             Text(
               message.subject,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Row(
@@ -464,29 +467,18 @@ class MessageDetailPage extends StatelessWidget {
                       ),
                       Text(
                         'To: me',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
                       ),
                     ],
                   ),
                 ),
-                Text(
-                  message.time,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                  ),
-                ),
+                Text(message.time, style: TextStyle(color: Colors.grey[600])),
               ],
             ),
             const SizedBox(height: 24),
             Text(
               'Dear User,\n\n${message.content}\n\nThank you for using CashEase. If you have any questions, please don\'t hesitate to contact our customer support team.\n\nBest regards,\nThe CashEase Team',
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.5,
-              ),
+              style: const TextStyle(fontSize: 16, height: 1.5),
             ),
           ],
         ),

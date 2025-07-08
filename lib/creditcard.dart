@@ -30,9 +30,9 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
           'date': DateTime.now().toString().substring(0, 16),
         });
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Pembayaran berhasil!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Pembayaran berhasil!')));
       _cardNumberController.clear();
       _amountController.clear();
     }
@@ -53,23 +53,29 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
         border: InputBorder.none,
         contentPadding: EdgeInsets.zero,
       ),
-      items: _banks.map((bank) {
-        return DropdownMenuItem<String>(
-          value: bank['name'],
-          child: Row(
-            children: [
-              Image.network(
-                bank['logo']!,
-                width: 28,
-                height: 28,
-                errorBuilder: (context, error, stackTrace) => Icon(Icons.account_balance),
+      items:
+          _banks.map((bank) {
+            return DropdownMenuItem<String>(
+              value: bank['name'],
+              child: Row(
+                children: [
+                  Image.asset(
+                    bank['logo']!,
+                    width: 28,
+                    height: 28,
+                    errorBuilder:
+                        (context, error, stackTrace) =>
+                            Icon(Icons.account_balance),
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    bank['name']!,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
-              SizedBox(width: 8),
-              Text(bank['name']!, style: TextStyle(fontWeight: FontWeight.w500)),
-            ],
-          ),
-        );
-      }).toList(),
+            );
+          }).toList(),
       onChanged: (value) {
         setState(() {
           _selectedBank = value;
@@ -113,7 +119,11 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
                   "• Minimum pembayaran adalah Rp50.000\n"
                   "• Lakukan pembayaran sebelum tanggal jatuh tempo karena terdapat proses verifikasi selama 1 hari kerja.\n"
                   "• Cek kembali jenis kartu kredit & bank penyedia pilihanmu. Kartu kredit Visa selalu diawali angka 4.",
-                  style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.3),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black87,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
@@ -137,14 +147,16 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
-        ..._history.map((item) => Card(
-              margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-              child: ListTile(
-                leading: Icon(Icons.credit_card, color: Colors.deepPurple),
-                title: Text('${item['bank']} - ${item['card']}'),
-                subtitle: Text('Rp ${item['amount']} • ${item['date']}'),
-              ),
-            )),
+        ..._history.map(
+          (item) => Card(
+            margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+            child: ListTile(
+              leading: Icon(Icons.credit_card, color: Colors.deepPurple),
+              title: Text('${item['bank']} - ${item['card']}'),
+              subtitle: Text('Rp ${item['amount']} • ${item['date']}'),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -206,7 +218,10 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 12,
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -241,13 +256,18 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 12,
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Masukkan jumlah pembayaran';
                             }
-                            final amount = int.tryParse(value.replaceAll('.', ''));
+                            final amount = int.tryParse(
+                              value.replaceAll('.', ''),
+                            );
                             if (amount == null || amount < 50000) {
                               return 'Minimal pembayaran Rp50.000';
                             }
@@ -276,7 +296,11 @@ class _CreditCardPaymentPageState extends State<CreditCardPaymentPage> {
                   onPressed: _submitPayment,
                   child: const Text(
                     'Pay Bill',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

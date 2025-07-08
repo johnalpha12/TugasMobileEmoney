@@ -6,12 +6,12 @@ class EditProfile extends StatefulWidget {
   final String phoneNumber;
   final String email;
   final String gender;
-  
+
   const EditProfile({
-    super.key, 
-    required this.firstName, 
-    required this.lastName, 
-    required this.phoneNumber, 
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
     required this.email,
     required this.gender,
   });
@@ -34,7 +34,9 @@ class _EditProfileState extends State<EditProfile> {
     _firstNameController = TextEditingController(text: widget.firstName);
     _lastNameController = TextEditingController(text: widget.lastName);
     _emailController = TextEditingController(text: widget.email);
-    _passwordController = TextEditingController(text: "Salim6ntng123"); // Password default
+    _passwordController = TextEditingController(
+      text: "Salim6ntng123",
+    ); // Password default
     _phoneController = TextEditingController(text: widget.phoneNumber);
     _selectedGender = widget.gender;
   }
@@ -68,13 +70,13 @@ class _EditProfileState extends State<EditProfile> {
                 ],
               ),
             ),
-            
+
             // Profile picture
             const CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('asset/foto.png'),
             ),
-            
+
             const SizedBox(height: 16),
             Text(
               "${_firstNameController.text} ${_lastNameController.text}",
@@ -84,9 +86,9 @@ class _EditProfileState extends State<EditProfile> {
                 color: Colors.white,
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Form section
             Expanded(
               child: Container(
@@ -106,18 +108,19 @@ class _EditProfileState extends State<EditProfile> {
                       const SizedBox(height: 16),
                       buildFormField("Email", _emailController),
                       const SizedBox(height: 16),
-                      buildFormField("Sandi", _passwordController, isPassword: true),
+                      buildFormField(
+                        "Sandi",
+                        _passwordController,
+                        isPassword: true,
+                      ),
                       const SizedBox(height: 16),
                       buildFormField("No Hp", _phoneController),
                       const SizedBox(height: 16),
-                      
+
                       // Jenis Kelamin Radio Button
                       const Text(
                         "Jenis Kelamin",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
                       ),
                       Row(
                         children: [
@@ -151,7 +154,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 24),
                       // Confirm button
                       SizedBox(
@@ -195,23 +198,24 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget buildFormField(String label, TextEditingController controller, {bool isPassword = false}) {
+  Widget buildFormField(
+    String label,
+    TextEditingController controller, {
+    bool isPassword = false,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
           obscureText: isPassword,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey[300]!),

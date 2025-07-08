@@ -24,14 +24,16 @@ class _EditTabunganState extends State<EditTabungan> {
     super.initState();
     _titleController = TextEditingController(text: widget.goal?.title ?? '');
     _amountController = TextEditingController(
-      text: widget.goal?.amount != null
-          ? _formatNumber(widget.goal!.amount)
-          : '',
+      text:
+          widget.goal?.amount != null ? _formatNumber(widget.goal!.amount) : '',
     );
     _initialDepositController = TextEditingController(
-      text: widget.goal != null
-          ? _formatNumber((widget.goal!.amount * widget.goal!.progress).toInt())
-          : '',
+      text:
+          widget.goal != null
+              ? _formatNumber(
+                (widget.goal!.amount * widget.goal!.progress).toInt(),
+              )
+              : '',
     );
     _descriptionController = TextEditingController(
       text: widget.goal?.description ?? '',
@@ -55,16 +57,19 @@ class _EditTabunganState extends State<EditTabungan> {
 
   void _saveGoal() {
     if (_formKey.currentState!.validate()) {
-      final int target = int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
-      final int initial = int.tryParse(_initialDepositController.text.replaceAll(',', '')) ?? 0;
+      final int target =
+          int.tryParse(_amountController.text.replaceAll(',', '')) ?? 0;
+      final int initial =
+          int.tryParse(_initialDepositController.text.replaceAll(',', '')) ?? 0;
 
       final newGoal = SavingGoal(
         title: _titleController.text.trim(),
         amount: target,
         progress: target > 0 ? (initial / target).clamp(0.0, 1.0) : 0.0,
-        description: _descriptionController.text.trim().isEmpty
-            ? null
-            : _descriptionController.text.trim(),
+        description:
+            _descriptionController.text.trim().isEmpty
+                ? null
+                : _descriptionController.text.trim(),
         targetDate: _selectedDate,
       );
       Navigator.pop(context, newGoal);
@@ -106,14 +111,18 @@ class _EditTabunganState extends State<EditTabungan> {
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Nama Tabungan'),
-                validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Masukkan nama tabungan'
-                    : null,
+                validator:
+                    (value) =>
+                        value == null || value.trim().isEmpty
+                            ? 'Masukkan nama tabungan'
+                            : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _amountController,
-                decoration: const InputDecoration(labelText: 'Jumlah Target (Rp)'),
+                decoration: const InputDecoration(
+                  labelText: 'Jumlah Target (Rp)',
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -132,7 +141,9 @@ class _EditTabunganState extends State<EditTabungan> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _initialDepositController,
-                decoration: const InputDecoration(labelText: 'Jumlah Setoran Awal (Rp)'),
+                decoration: const InputDecoration(
+                  labelText: 'Jumlah Setoran Awal (Rp)',
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -151,7 +162,9 @@ class _EditTabunganState extends State<EditTabungan> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Deskripsi (Opsional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Deskripsi (Opsional)',
+                ),
               ),
               const SizedBox(height: 12),
               ListTile(

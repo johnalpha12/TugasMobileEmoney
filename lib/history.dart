@@ -14,7 +14,7 @@ class _HistoryState extends State<History> {
   String? selectedCategory;
   DateTime? selectedDate;
   bool showFilterPanel = false;
-  
+
   // Text editing controller for search functionality
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = '';
@@ -131,7 +131,7 @@ class _HistoryState extends State<History> {
     super.initState();
     // Initialize filtered transactions with all transactions
     filteredTransactions = List.from(allTransactions);
-    
+
     // Add listener to search controller
     _searchController.addListener(_onSearchChanged);
   }
@@ -150,33 +150,47 @@ class _HistoryState extends State<History> {
       _applyFilters();
     });
   }
-  
+
   // Apply filters based on selected criteria
   void _applyFilters() {
     setState(() {
-      filteredTransactions = allTransactions.where((transaction) {
-        // Search filter
-        bool matchesSearch = searchQuery.isEmpty ||
-            transaction['description'].toLowerCase().contains(searchQuery.toLowerCase()) ||
-            transaction['detail'].toLowerCase().contains(searchQuery.toLowerCase());
-        
-        // Status filter
-        bool matchesStatus = selectedStatus == null || transaction['status'] == selectedStatus;
-        
-        // Category filter
-        bool matchesCategory = selectedCategory == null || transaction['type'] == selectedCategory;
-        
-        // Date filter
-        bool matchesDate = selectedDate == null || 
-            (transaction['date'].year == selectedDate!.year &&
-             transaction['date'].month == selectedDate!.month &&
-             transaction['date'].day == selectedDate!.day);
-        
-        return matchesSearch && matchesStatus && matchesCategory && matchesDate;
-      }).toList();
+      filteredTransactions =
+          allTransactions.where((transaction) {
+            // Search filter
+            bool matchesSearch =
+                searchQuery.isEmpty ||
+                transaction['description'].toLowerCase().contains(
+                  searchQuery.toLowerCase(),
+                ) ||
+                transaction['detail'].toLowerCase().contains(
+                  searchQuery.toLowerCase(),
+                );
+
+            // Status filter
+            bool matchesStatus =
+                selectedStatus == null ||
+                transaction['status'] == selectedStatus;
+
+            // Category filter
+            bool matchesCategory =
+                selectedCategory == null ||
+                transaction['type'] == selectedCategory;
+
+            // Date filter
+            bool matchesDate =
+                selectedDate == null ||
+                (transaction['date'].year == selectedDate!.year &&
+                    transaction['date'].month == selectedDate!.month &&
+                    transaction['date'].day == selectedDate!.day);
+
+            return matchesSearch &&
+                matchesStatus &&
+                matchesCategory &&
+                matchesDate;
+          }).toList();
     });
   }
-  
+
   // Reset all filters
   void _resetFilters() {
     setState(() {
@@ -261,7 +275,7 @@ class _HistoryState extends State<History> {
                   const SizedBox(height: 8),
                   _buildStatusFilter(),
                   const SizedBox(height: 16),
-          
+
                   const Text(
                     'Date',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -299,7 +313,10 @@ class _HistoryState extends State<History> {
                                 ? 'Choose your date'
                                 : _formatDate(selectedDate!, 'dd/MM/yyyy'),
                             style: TextStyle(
-                              color: selectedDate == null ? Colors.grey : Colors.black,
+                              color:
+                                  selectedDate == null
+                                      ? Colors.grey
+                                      : Colors.black,
                             ),
                           ),
                           Icon(
@@ -312,7 +329,7 @@ class _HistoryState extends State<History> {
                     ),
                   ),
                   const SizedBox(height: 16),
-          
+
                   const Text(
                     'Kategori',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -320,7 +337,7 @@ class _HistoryState extends State<History> {
                   const SizedBox(height: 8),
                   _buildCategoryFilter(),
                   const SizedBox(height: 16),
-          
+
                   Row(
                     children: [
                       Expanded(
@@ -342,7 +359,8 @@ class _HistoryState extends State<History> {
                           onPressed: () {
                             _applyFilters();
                             setState(() {
-                              showFilterPanel = false; // Hide filter panel after applying
+                              showFilterPanel =
+                                  false; // Hide filter panel after applying
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -361,83 +379,100 @@ class _HistoryState extends State<History> {
 
           // Transaction list
           Expanded(
-            child: filteredTransactions.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.search_off,
-                          size: 64,
-                          color: Colors.grey[400],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No transactions found',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[600],
+            child:
+                filteredTransactions.isEmpty
+                    ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search_off,
+                            size: 64,
+                            color: Colors.grey[400],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(0),
-                    itemCount: filteredTransactions.length,
-                    itemBuilder: (context, index) {
-                      final transaction = filteredTransactions[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 1),
-                        color: Colors.white,
-                        child: ListTile(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: transaction['color'],
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              transaction['icon'],
-                              color: Colors.white,
+                          const SizedBox(height: 16),
+                          Text(
+                            'No transactions found',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600],
                             ),
                           ),
-                          title: Text(
-                            transaction['description'],
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                transaction['detail'],
-                                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                        ],
+                      ),
+                    )
+                    : ListView.builder(
+                      padding: const EdgeInsets.all(0),
+                      itemCount: filteredTransactions.length,
+                      itemBuilder: (context, index) {
+                        final transaction = filteredTransactions[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 1),
+                          color: Colors.white,
+                          child: ListTile(
+                            leading: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: transaction['color'],
+                                shape: BoxShape.circle,
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                _formatDate(transaction['date'], 'dd MMM yyyy'),
-                                style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                              child: Icon(
+                                transaction['icon'],
+                                color: Colors.white,
                               ),
-                            ],
-                          ),
-                          trailing: transaction['amount'] != 0
-                              ? Text(
-                                  _formatCurrency(transaction['amount']),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: transaction['amount'] > 0 ? Colors.green : Colors.red,
+                            ),
+                            title: Text(
+                              transaction['description'],
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  transaction['detail'],
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
                                   ),
-                                )
-                              : null,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        ),
-                      );
-                    },
-                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _formatDate(
+                                    transaction['date'],
+                                    'dd MMM yyyy',
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[500],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            trailing:
+                                transaction['amount'] != 0
+                                    ? Text(
+                                      _formatCurrency(transaction['amount']),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            transaction['amount'] > 0
+                                                ? Colors.green
+                                                : Colors.red,
+                                      ),
+                                    )
+                                    : null,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
           ),
         ],
       ),
@@ -489,9 +524,10 @@ class _HistoryState extends State<History> {
             color: isSelected ? Colors.deepPurple : Colors.grey.shade300,
           ),
           borderRadius: BorderRadius.circular(20),
-          color: isSelected
-              ? Colors.deepPurple.withOpacity(0.1)
-              : Colors.transparent,
+          color:
+              isSelected
+                  ? Colors.deepPurple.withOpacity(0.1)
+                  : Colors.transparent,
         ),
         child: Text(
           label,
@@ -509,7 +545,20 @@ class _HistoryState extends State<History> {
     if (format == 'dd/MM/yyyy') {
       return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
     } else if (format == 'dd MMM yyyy') {
-      List<String> months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      List<String> months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
       return '${date.day.toString().padLeft(2, '0')} ${months[date.month - 1]} ${date.year}';
     }
     return date.toString();
@@ -519,7 +568,7 @@ class _HistoryState extends State<History> {
   String _formatCurrency(int amount) {
     String prefix = 'Rp ';
     String amountStr = amount.abs().toString();
-    
+
     // Add thousand separators
     String result = '';
     for (int i = 0; i < amountStr.length; i++) {
@@ -528,7 +577,7 @@ class _HistoryState extends State<History> {
       }
       result += amountStr[i];
     }
-    
+
     return '$prefix$result';
   }
 
@@ -548,9 +597,10 @@ class _HistoryState extends State<History> {
             color: isSelected ? Colors.deepPurple : Colors.grey.shade300,
           ),
           borderRadius: BorderRadius.circular(20),
-          color: isSelected
-              ? Colors.deepPurple.withOpacity(0.1)
-              : Colors.transparent,
+          color:
+              isSelected
+                  ? Colors.deepPurple.withOpacity(0.1)
+                  : Colors.transparent,
         ),
         child: Text(
           label,

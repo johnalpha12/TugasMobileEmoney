@@ -33,7 +33,6 @@ class KirimUangPage extends StatelessWidget {
     {'label': 'send to email', 'img': 'asset/ilogo7.png'},
     {'label': 'scan code QR', 'img': 'asset/ilogo8.png'},
     {'label': 'send to chat', 'img': 'asset/ilogo5.png'},
-    
   ];
 
   @override
@@ -49,14 +48,19 @@ class KirimUangPage extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
               ),
-              onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              );
-            }, child: Icon(Icons.arrow_back, color: Colors.white,),),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+              child: Icon(Icons.arrow_back, color: Colors.white),
+            ),
             SizedBox(width: 10),
-            Text("Kirim Uang", style:TextStyle(fontSize: 20, color: Colors.white) ),
+            Text(
+              "Kirim Uang",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
           ],
         ),
       ),
@@ -76,10 +80,8 @@ class KirimUangPage extends StatelessWidget {
                     hintText: "cari no hp/rekening bank",
                     border: InputBorder.none,
                     icon: Icon(Icons.search),
-
                   ),
                 ),
-                
               ),
               SizedBox(height: 20),
               _buildSection("contacts", contacts, isContact: true),
@@ -92,7 +94,11 @@ class KirimUangPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String sectionTitle, List<Map<String, String>> items, {bool isContact = false}) {
+  Widget _buildSection(
+    String sectionTitle,
+    List<Map<String, String>> items, {
+    bool isContact = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -102,20 +108,25 @@ class KirimUangPage extends StatelessWidget {
       child: Wrap(
         spacing: 20,
         runSpacing: 20,
-        children: items.map((item) {
-          return SizedBox(
-            width: 80,
-            child: Column(
-              children: [
-                ClipOval(
-                  child: Image.asset(item['img']!, width: 50, height: 50),
+        children:
+            items.map((item) {
+              return SizedBox(
+                width: 80,
+                child: Column(
+                  children: [
+                    ClipOval(
+                      child: Image.asset(item['img']!, width: 50, height: 50),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      item[isContact ? 'name' : 'label']!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 10),
-                Text(item[isContact ? 'name' : 'label']!, textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
-              ],
-            ),
-          );
-        }).toList(),
+              );
+            }).toList(),
       ),
     );
   }
