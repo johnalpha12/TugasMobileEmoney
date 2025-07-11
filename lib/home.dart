@@ -14,9 +14,11 @@ import 'creditcard.dart';
 import 'beneficiary.dart';
 import 'topup.dart';
 import 'package:intl/intl.dart';
+import 'transfer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
+  
 
   @override
   State<Home> createState() => _HomeState();
@@ -30,7 +32,7 @@ class _HomeState extends State<Home> {
     const History(),
     const QrisPage(),
     const Pocket(),
-    const ProfilePagee(),
+    const ProfilePage(),
   ];
 
   @override
@@ -384,7 +386,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
     return Column(
       children: [
         _buildPurpleHeader(),
-        Expanded(child: SingleChildScrollView(child: _buildMenuGrid())),
+        Expanded(child: SingleChildScrollView(child: _buildMenuGrid(context))),
       ],
     );
   }
@@ -569,6 +571,7 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
   }
 
   void _showTaxesLoanDrawer(BuildContext context) {
+    
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -735,118 +738,104 @@ class _HomeHeaderBodyState extends State<HomeHeaderBody> {
       },
     );
   }
+  
+  Widget _buildMenuGrid(BuildContext context) {
+  final List<Map<String, dynamic>> menuItems = [
+    {
+      'icon': Icons.swap_horiz,
+      'text': 'Transfer',
+      'color': Colors.red.shade400,
+      'bgColor': Colors.red.shade50,
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TransferPage()),
+        );
+      },
+    },
+    {
+      'icon': Icons.atm_outlined,
+      'text': 'Withdraw',
+      'color': Colors.blue,
+      'bgColor': Colors.blue.shade50,
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WithdrawPage()),
+        );
+      },
+    },
+    {
+      'icon': Icons.savings_outlined,
+      'text': 'Save\nonline',
+      'color': Colors.indigo,
+      'bgColor': Colors.indigo.shade50,
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage(isPushed: true)),
+        );
+      },
+    },
+    {
+      'icon': Icons.credit_card_outlined,
+      'text': 'Credit\nCard',
+      'color': Colors.orange,
+      'bgColor': Colors.orange.shade50,
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CreditCardPaymentPage()),
+        );
+      },
+    },
+    {
+      'icon': Icons.person_add_outlined,
+      'text': 'Beneficiary',
+      'color': Colors.pink,
+      'bgColor': Colors.pink.shade50,
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BeneficiaryPage()),
+        );
+      },
+    },
+    {
+      'icon': Icons.account_balance_outlined,
+      'text': 'Taxes/Loan',
+      'color': Colors.black,
+      'bgColor': Colors.grey.shade100,
+      'onTap': () => _showTaxesLoanDrawer(context),
+    },
+  ];
 
-  Widget _buildMenuGrid() {
-    final List<Map<String, dynamic>> menuItems = [
-      {
-        'icon': Icons.credit_card_outlined,
-        'text': 'Accept and\nCard',
-        'color': Colors.blue,
-        'bgColor': Colors.blue.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.swap_horiz,
-        'text': 'Transfer',
-        'color': Colors.red.shade400,
-        'bgColor': Colors.red.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.atm_outlined,
-        'text': 'Withdraw',
-        'color': Colors.blue,
-        'bgColor': Colors.blue.shade50,
-        'onTap':
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WithdrawPage()),
-            ),
-      },
-      {
-        'icon': Icons.sim_card_outlined,
-        'text': 'Mobile\nPrepaid',
-        'color': Colors.amber,
-        'bgColor': Colors.amber.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.receipt_outlined,
-        'text': 'Pay the\nBill',
-        'color': Colors.teal,
-        'bgColor': Colors.teal.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.savings_outlined,
-        'text': 'Save\nonline',
-        'color': Colors.indigo,
-        'bgColor': Colors.indigo.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.credit_card_outlined,
-        'text': 'Credit\nCard',
-        'color': Colors.orange,
-        'bgColor': Colors.orange.shade50,
-        'onTap':
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CreditCardPaymentPage()),
-            ),
-      },
-      {
-        'icon': Icons.receipt_long_outlined,
-        'text': 'Transaction\nReport',
-        'color': Colors.blue.shade700,
-        'bgColor': Colors.blue.shade50,
-        'onTap': () {},
-      },
-      {
-        'icon': Icons.person_add_outlined,
-        'text': 'Beneficiary',
-        'color': Colors.pink,
-        'bgColor': Colors.pink.shade50,
-        'onTap':
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const BeneficiaryPage()),
-            ),
-      },
-      {
-        'icon': Icons.account_balance_outlined,
-        'text': 'Taxes/Loan',
-        'color': Colors.black,
-        'bgColor': Colors.grey.shade100,
-        'onTap': () => _showTaxesLoanDrawer(context),
-      },
-    ];
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    child: Column(
+      children: List.generate((menuItems.length / 3).ceil(), (rowIndex) {
+        final startIndex = rowIndex * 3;
+        final endIndex = (startIndex + 3 > menuItems.length)
+            ? menuItems.length
+            : startIndex + 3;
+        final rowItems = menuItems.sublist(startIndex, endIndex);
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: rowItems
+                .map((item) => _buildMenuItemSquare(item))
+                .toList()
+              ..addAll(
+                List.generate(3 - rowItems.length, (_) => const Spacer()),
+              ),
+          ),
+        );
+      }),
+    ),
+  );
+}
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: List.generate((menuItems.length / 3).ceil(), (rowIndex) {
-          final startIndex = rowIndex * 3;
-          final endIndex =
-              (startIndex + 3 > menuItems.length)
-                  ? menuItems.length
-                  : startIndex + 3;
-          final rowItems = menuItems.sublist(startIndex, endIndex);
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:
-                  rowItems.map((item) => _buildMenuItemSquare(item)).toList()
-                    ..addAll(
-                      List.generate(3 - rowItems.length, (_) => const Spacer()),
-                    ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
 
   Widget _buildMenuItemSquare(Map<String, dynamic> item) {
     return GestureDetector(

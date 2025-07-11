@@ -11,7 +11,7 @@ class QrisPage extends StatelessWidget {
         children: [
           _buildPurpleHeader(context),
           _buildQrCard(),
-          _buildBottomActions(),
+          _buildBottomActions(context), // Pass context to _buildBottomActions
         ],
       ),
     );
@@ -90,7 +90,7 @@ class QrisPage extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomActions() {
+  Widget _buildBottomActions(BuildContext context) { // Add context parameter
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -98,10 +98,14 @@ class QrisPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              _BottomAction(icon: Icons.qr_code, label: "Pindai"),
-              _BottomAction(icon: Icons.close, label: "Tutup"),
-              _BottomAction(icon: Icons.credit_card, label: "Tambah Kartu"),
+            children: [
+              const _BottomAction(icon: Icons.qr_code, label: "Pindai"),
+              _BottomAction(
+                icon: Icons.close,
+                label: "Tutup",
+                onPressed: () => Navigator.of(context).pop(), // Use context from parameter
+              ),
+              const _BottomAction(icon: Icons.credit_card, label: "Tambah Kartu"),
             ],
           ),
         ),
@@ -142,18 +146,22 @@ class _HeaderButton extends StatelessWidget {
 class _BottomAction extends StatelessWidget {
   final IconData icon;
   final String label;
+  final VoidCallback? onPressed;
 
-  const _BottomAction({required this.icon, required this.label});
+  const _BottomAction({required this.icon, required this.label, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 28, color: Colors.black),
-        const SizedBox(height: 5),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
+    return GestureDetector( // Add GestureDetector to make it tappable
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 28, color: Colors.black),
+          const SizedBox(height: 5),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
     );
   }
 }
